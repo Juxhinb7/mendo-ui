@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.rw-cell.rw-state-selected {
+    @apply bg-cyan-600;
+}
