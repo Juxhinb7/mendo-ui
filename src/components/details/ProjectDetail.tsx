@@ -7,6 +7,8 @@ import { ProjectDetailStateFields } from "../../interfaces/fields/ProjectDetailS
 import DetailList from "../detailLists/DetailList";
 import DescriptionBox from "../elements/DescriptionBox";
 import CommentSection from "../widgets/CommentSection";
+import TextInfoContainer from "../containers/TextInfoContainer";
+import DetailContainer from "../containers/DetailContainer";
 
 const ProjectDetail = () => {
     const {id} = useParams();
@@ -61,17 +63,17 @@ const ProjectDetail = () => {
 
 
         <SectionContainer title={data.title} twHeight="max-content">
-            <div className="flex flex-col 2xl:flex-row justify-center 2xl:space-x-12">
-                <div className="justify-center items-center flex flex-col">
+            <DetailContainer>
+                <TextInfoContainer>
                     <DescriptionBox title="Description" onChange={event => changeDescription(event)} description={data.description} />
                     <CommentSection comments={data.comments}/>
-                </div>  
+                </TextInfoContainer>  
                 <div className="justify-center flex flex-col">
-                    <DetailList headings={HEADINGS} title="Hashtags" data={data.hashtags} url={`/my-environment/projects/hashtags/`} />
-                    <DetailList headings={HEADINGS} title="Sprints" data={data.sprints} url={`/my-environment/projects/sprints/`} />
-                    <DetailList headings={HEADINGS} title="Epics"data={data.epics} url={`/my-environment/projects/epics/`} />
+                    <DetailList headings={HEADINGS} title="Hashtags" setData={setData} data={data} subData={data.hashtags} someKey={"hashtags"} url={`/my-environment/projects/hashtags/`} serverURL="http://127.0.0.1:8000/project_management" serverRoute="/hashtags/" token={token} projectId={id}/>
+                    <DetailList headings={HEADINGS} title="Sprints" setData={setData} data={data} subData={data.sprints} someKey={"sprints"} url={`/my-environment/projects/sprints/`} serverURL="http://127.0.0.1:8000/project_management" serverRoute="/sprints/" token={token} projectId={id}/>
+                    <DetailList headings={HEADINGS} title="Epics" setData={setData} data={data} subData={data.epics} someKey={"epics"} url={`/my-environment/projects/epics/`} serverURL="http://127.0.0.1:8000/project_management" serverRoute="/epics/" token={token} projectId={id}/>
                 </div>
-            </div>
+            </DetailContainer>
 
         </SectionContainer>
     )

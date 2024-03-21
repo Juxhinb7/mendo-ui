@@ -14,6 +14,7 @@ const useGeoLocation = (): GeoLocatable => {
                 }, (error: GeolocationPositionError) => {
                     setError("Error getting user location: " + error);
                 }
+            
             )
         } else {
             setError("Geolocation is not supported by this browser");
