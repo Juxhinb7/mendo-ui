@@ -9,7 +9,7 @@ import InputErrorBoundary from "../errorBoundaries/InputErrorBoundary";
 import useSubmitCredentials from "../../hooks/useSubmitCredentials";
 
 const Activation: React.FC = (): JSX.Element => {
-    const URL = "http://127.0.0.1:8000/users/api/activate/";
+    const URL = "https://starfish-app-hso4j.ondigitalocean.app/users/api/activate/";
     const [email, setEmail] = useState<string>("");
     const [activationCode, setActivationCode] = useState<string>("");
     const submitProps = useSubmitCredentials(URL, {email, activationCode});

@@ -1,8 +1,11 @@
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { ReactElement } from "react";
 
 interface ModalComponentProps {
-    buttonTitle: string;
-    dialogTitle: string;
+    type: string;
+    icon?: IconProp;
+    buttonTitle?: string;
+    dialogTitle?: string;
     children: ReactElement;
 }
 

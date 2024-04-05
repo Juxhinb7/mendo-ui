@@ -13,7 +13,7 @@ import useSubmitCredentials from "../../hooks/useSubmitCredentials";
 
 const SignUp: React.FC = (): JSX.Element => {
 
-    const URL = "http://127.0.0.1:8000/users/api/register/";
+    const URL = "https://starfish-app-hso4j.ondigitalocean.app/users/api/register/";
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");

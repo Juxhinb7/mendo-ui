@@ -8,7 +8,7 @@ import HorizontalBar from "../widgets/HorizontalBar";
 import useBackground from "../../hooks/useBackground";
 import { BackgroundHandlerContext } from "../../contexts/BackgroundHandlerContext";
 import Projects from "./subpages/Projects";
-import Reports from "./subpages/Reports";
+import Workspace from "./subpages/Workspace";
 import Settings from "./subpages/Settings";
 import ProjectDetail from "../details/ProjectDetail";
 import HashtagDetail from "../details/HashtagDetail";
@@ -42,7 +42,7 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                                 <Route path="/projects/hashtags/:id" element={<HashtagDetail />} />
                                 <Route path="/projects/sprints/:id" element={<SprintDetail />} />
                                 <Route path="/projects/epics/:id" element={<EpicDetail />} />
-                                <Route path="/reports" element={<Reports />} />
+                                <Route path="/workspace" element={<Workspace />} />
                                 <Route path ="/settings" element={<Settings />} /> 
                             </Routes>
                         </ContentContainer>

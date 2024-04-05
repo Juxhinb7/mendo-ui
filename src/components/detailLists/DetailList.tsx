@@ -9,7 +9,7 @@ import axios from "axios";
 
 const DetailList: React.FC<DetailListComponentProps> = (props): JSX.Element => {
     const handleRemove = async (item: {[key: string]: string}, e: React.MouseEvent) => {
-        const response = await axios({ method: "DELETE", url: "http://127.0.0.1:8000/project_management" + props.serverRoute + item.id, headers: { Authorization: "Bearer " + props.token }});
+        const response = await axios({ method: "DELETE", url: props.serverURL + props.serverRoute + item.id, headers: { Authorization: "Bearer " + props.token }});
         console.log(response);
         const filteredSubData = props.data[props.someKey].filter((m: any) => m.id != item.id);
         props.setData((prevData: any) => {

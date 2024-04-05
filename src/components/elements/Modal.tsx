@@ -2,6 +2,7 @@ import { Fragment, useState } from "react"
 import ModalComponentProps from "../../interfaces/modals/ModalComponentProps"
 import Button from "./Button"
 import { Dialog, Transition } from "@headlessui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Modal: React.FC<ModalComponentProps> = (props): JSX.Element => {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,8 +16,9 @@ const Modal: React.FC<ModalComponentProps> = (props): JSX.Element => {
     }
 
     return (
-        <div>
-            <Button type="button" onClick={openModal} title={props.buttonTitle}/>
+        <>
+            {props.type=="fontAwesome" && <FontAwesomeIcon onClick={openModal} icon={props.icon} className="cursor-pointer text-gray-600"/>}
+            {props.type == "button" && <Button type="button" onClick={openModal} title={props.buttonTitle}/>}
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
@@ -54,7 +56,7 @@ const Modal: React.FC<ModalComponentProps> = (props): JSX.Element => {
                     </div>
                 </Dialog>
             </Transition>
-        </div>
+        </>
     )
 }
 

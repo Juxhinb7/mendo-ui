@@ -10,7 +10,7 @@ import DetailContainer from "../containers/DetailContainer";
 const EpicDetail: React.FC = (): JSX.Element => {
     const { id } = useParams();
     const { token } = useToken();
-    const URL = `http://127.0.0.1:8000/project_management/epics/${id}`
+    const URL = `https://starfish-app-hso4j.ondigitalocean.app/project_management/epics/${id}`
     const {fetchedData, fetchData} = useFetchData(URL, token);
     fetchData();
   

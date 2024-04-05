@@ -9,3 +9,5 @@ interface Submittable {
     submitData: (event: React.FormEvent) => void;
 
 }
+
+export default Submittable;

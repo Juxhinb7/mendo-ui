@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Submittable from "../interfaces/hooks/Submittable";
 
 const useSubmitCredentials = (url: string, 
     data: {}, setToken?: any, 

@@ -10,7 +10,7 @@ import useToken from "../../hooks/useToken";
 import useSubmitCredentials from "../../hooks/useSubmitCredentials";
 
 const SignIn = () => {
-    const URL = "http://127.0.0.1:8000/users/api/login/";
+    const URL = "https://starfish-app-hso4j.ondigitalocean.app/users/api/login/";
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const { setToken } = useToken();

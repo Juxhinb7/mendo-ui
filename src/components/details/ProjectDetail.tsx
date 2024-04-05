@@ -9,6 +9,8 @@ import DescriptionBox from "../elements/DescriptionBox";
 import CommentSection from "../widgets/CommentSection";
 import TextInfoContainer from "../containers/TextInfoContainer";
 import DetailContainer from "../containers/DetailContainer";
+import DetailListComponentProps from "../../interfaces/detailLists/DetailListComponentProps";
+import DescriptionBoxComponentProps from "../../interfaces/descriptionBoxes/DescriptionBoxComponentProps";
 
 const ProjectDetail = () => {
     const {id} = useParams();
@@ -25,19 +27,21 @@ const ProjectDetail = () => {
 
     });
 
+    const serverURL = "https://starfish-app-hso4j.ondigitalocean.app/project_management";
+
     const HEADINGS = ["Id", "Title", "Action"];
 
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://127.0.0.1:8000/project_management/projects/${id}`,
+            url: serverURL + `/projects/${id}/`,
             headers: {
                 Authorization: "Bearer " + token
             }
         })
         .then((response: AxiosResponse) => {
             console.log(response.data);
-            setData((prevData: any) => {
+            setData((prevData: ProjectDetailStateFields) => {
                 return {
                     ...prevData,
                     ...response.data
@@ -48,30 +52,79 @@ const ProjectDetail = () => {
         .catch((error: AxiosError) => {
             console.log(error.response);
         })
-    }, []);
+    }, [id, token]);
 
-    const changeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setData((prevData: any) => {
-            return {
-                ...prevData,
-                description: event.target.value
-            }
-        })
+
+    const sectionContainerProps = {
+        title: data.title,
+        twHeight: "max-content"
     }
 
+
+    const descriptionBoxProps: DescriptionBoxComponentProps = {
+        title: "Description",
+        value: data.description
+    }
+
+    const commentSectionProps = {
+        comments: data.comments
+    }
+
+    const hashtagsDetailListProps: DetailListComponentProps = {
+        headings: HEADINGS,
+        title: "Hashtags",
+        setData,
+        data,
+        subData: data.hashtags,
+        someKey: "hashtags",
+        url: "/my-environment/projects/hashtags/",
+        serverURL,
+        serverRoute: "/hashtags/",
+        token,
+        projectId: id
+    }
+
+    const sprintsDetailListProps: DetailListComponentProps = {
+        headings: HEADINGS,
+        title: "Sprints",
+        setData,
+        data,
+        subData: data.sprints,
+        someKey: "sprints",
+        url: "/my-environment/projects/sprints/",
+        serverURL,
+        serverRoute: "/sprints/",
+        token,
+        projectId: id
+    }
+
+    const epicsDetailListProps: DetailListComponentProps = {
+        headings: HEADINGS,
+        title: "Epics",
+        setData,
+        data,
+        subData: data.epics,
+        someKey: "epics",
+        url: "/my-environment/projects/epics/",
+        serverURL,
+        serverRoute: "/epics/",
+        token,
+        projectId: id
+    }
+
+
+
     return (
-
-
-        <SectionContainer title={data.title} twHeight="max-content">
+        <SectionContainer {...sectionContainerProps} >
             <DetailContainer>
                 <TextInfoContainer>
-                    <DescriptionBox title="Description" onChange={event => changeDescription(event)} description={data.description} />
-                    <CommentSection comments={data.comments}/>
+                    <DescriptionBox {...descriptionBoxProps} />
+                    <CommentSection {...commentSectionProps}/>
                 </TextInfoContainer>  
                 <div className="justify-center flex flex-col">
-                    <DetailList headings={HEADINGS} title="Hashtags" setData={setData} data={data} subData={data.hashtags} someKey={"hashtags"} url={`/my-environment/projects/hashtags/`} serverURL="http://127.0.0.1:8000/project_management" serverRoute="/hashtags/" token={token} projectId={id}/>
-                    <DetailList headings={HEADINGS} title="Sprints" setData={setData} data={data} subData={data.sprints} someKey={"sprints"} url={`/my-environment/projects/sprints/`} serverURL="http://127.0.0.1:8000/project_management" serverRoute="/sprints/" token={token} projectId={id}/>
-                    <DetailList headings={HEADINGS} title="Epics" setData={setData} data={data} subData={data.epics} someKey={"epics"} url={`/my-environment/projects/epics/`} serverURL="http://127.0.0.1:8000/project_management" serverRoute="/epics/" token={token} projectId={id}/>
+                    <DetailList {...hashtagsDetailListProps} />
+                    <DetailList {...sprintsDetailListProps} />
+                    <DetailList {...epicsDetailListProps} />
                 </div>
             </DetailContainer>
 
