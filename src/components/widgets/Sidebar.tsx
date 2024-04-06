@@ -1,4 +1,4 @@
-import { faBriefcase, faChartSimple, faClipboardList, faGear, faHome} from "@fortawesome/free-solid-svg-icons";
+import { faBriefcase, faClipboardList, faGear, faHome} from "@fortawesome/free-solid-svg-icons";
 import Person from "../../assets/thispersondoesnotexist.jpg";
 import Profile from "../elements/Profile";
 import Logo from "../elements/Logo";

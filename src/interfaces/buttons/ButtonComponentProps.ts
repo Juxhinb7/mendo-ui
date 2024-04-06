@@ -1,7 +1,7 @@
 interface ButtonComponentProps {
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     processing?: boolean | undefined;
-    title: string;
+    title?: string;
     type: "button" | "submit" | "reset" | undefined;
 }
 

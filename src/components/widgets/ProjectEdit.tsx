@@ -55,7 +55,7 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
                 </div>
 
                 <div className="mt-4">
-                    <Input type="text" placeholder="Description" value={props.description} onChange={event => props.setDescription(event.target.value)}/>
+                    <textarea className="border rounded-lg w-full p-4" rows={10} placeholder="Description" value={props.description} onChange={event => props.setDescription(event.target.value)} required></textarea>
                 </div>
 
                 <div className="mt-4">

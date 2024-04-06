@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 
 interface ModalComponentProps {
     type: string;
-    icon?: IconProp;
+    icon: IconProp;
     buttonTitle?: string;
     dialogTitle?: string;
     children: ReactElement;

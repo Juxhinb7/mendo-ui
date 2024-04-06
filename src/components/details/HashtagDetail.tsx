@@ -11,7 +11,7 @@ const HashtagDetail: React.FC = (): JSX.Element => {
     fetchData();
 
     return (
-        <SectionContainer title={(fetchedData as any)?.title} twHeight="max-content">
+        <SectionContainer title={fetchedData.title} twHeight="max-content">
             <h1>Hello</h1>
         </SectionContainer>
     )

@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios"
 import {useCallback, useEffect, useState } from "react"
 
 const useFetchData = (url: string, token: string | null) => {
-    const [fetchedData, setFetchedData] = useState({});
+    const [fetchedData, setFetchedData] = useState<{[key: string]: string}>({});
 
     const fetchCallback = useCallback(async () => {
         try {

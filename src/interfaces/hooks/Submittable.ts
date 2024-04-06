@@ -6,7 +6,7 @@ interface Submittable {
     toggle: undefined | boolean
     setProcessing: React.Dispatch<React.SetStateAction<undefined | boolean>>;
     setToggle: React.Dispatch<React.SetStateAction<undefined | boolean>>;
-    submitData: (event: React.FormEvent) => void;
+    submitData: ((event: React.FormEvent) => Promise<void>) | ((event: React.FormEvent) => void);
 
 }
 

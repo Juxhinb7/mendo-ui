@@ -15,10 +15,10 @@ const EpicDetail: React.FC = (): JSX.Element => {
     fetchData();
   
     return (
-        <SectionContainer title={(fetchedData as any)?.title} twHeight="max-content">
+        <SectionContainer title={fetchedData.title} twHeight="max-content">
             <DetailContainer>
                 <TextInfoContainer>
-                    <DescriptionBox title="Description" description={(fetchData as any)?.description}/>
+                    <DescriptionBox title="Description" value={fetchedData.description}/>
                     <CommentSection comments={[]}/>
                 </TextInfoContainer>
             </DetailContainer>
