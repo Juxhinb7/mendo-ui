@@ -4,6 +4,8 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import Input from "../elements/Input";
 import Button from "../elements/Button";
 import Form from "../elements/Form";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element => {
 
@@ -13,7 +15,7 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
             props.setTitle(res.data.title);
             props.setDescription(res.data.description);
         })
-        .catch(err => console.log(err))
+        .catch(err => {console.log(err)});
     }, []);
 
     const handleEdit = (event: React.FormEvent) => {
@@ -55,10 +57,10 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
                 </div>
 
                 <div className="mt-4">
-                    <textarea className="border rounded-lg w-full p-4" rows={10} placeholder="Description" value={props.description} onChange={event => props.setDescription(event.target.value)} required></textarea>
-                </div>
+                    <ReactQuill className="h-64" placeholder="Description" value={props.description} onChange={props.setDescription} />
+                </div>  
 
-                <div className="mt-4">
+                <div className="mt-14">
                     <Button type="submit" title="Save"/>
                 </div>
             </Form>

@@ -2,6 +2,8 @@ import ProjectCreationComponentProps from "../../interfaces/widgets/ProjectCreat
 import Button from "../elements/Button";
 import Form from "../elements/Form";
 import Input from "../elements/Input";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 const ProjectCreation: React.FC<ProjectCreationComponentProps> = (props): JSX.Element => {
 
@@ -13,10 +15,10 @@ const ProjectCreation: React.FC<ProjectCreationComponentProps> = (props): JSX.El
                 </div>
 
                 <div className="mt-4">
-                    <Input type="text" placeholder="Description" onChange={event => props.setDescription(event.target.value)}/>
+                    <ReactQuill className="h-64" placeholder="Description" onChange={props.setDescription}/>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-14">
                     <Button type="submit" title="Save"/>
                 </div>
             </Form>

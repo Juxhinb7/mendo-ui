@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Mockup from "../../assets/81Jl.gif";
+import Mockup from "../../assets/mockup.gif";
 
 const Hero: React.FC = () => {
    return (

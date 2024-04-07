@@ -67,7 +67,7 @@ const Projects: React.FC = (): JSX.Element => {
             <div className="flex items-end justify-end">
                 <div className="mr-2">
                     <Modal type="button" buttonTitle="Add project" dialogTitle="Add project">
-                        <ProjectCreation submitHandler={handleSubmit} setTitle={setProjectTitle} setDescription={setProjectDescription}/>
+                        <ProjectCreation submitHandler={handleSubmit} setTitle={setProjectTitle} description={projectDescription} setDescription={setProjectDescription}/>
                     </Modal>
                 </div>
 
