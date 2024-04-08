@@ -44,7 +44,7 @@ const Projects: React.FC = (): JSX.Element => {
                 ...data,
                 response.data
             ]);
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.log(error);
         }
 

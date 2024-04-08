@@ -2,8 +2,9 @@ import { Fragment, useState } from "react"
 import Button from "./Button"
 import { Dialog, Transition } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ModalComponentProps from "../../interfaces/modals/ModalComponentProps";
 
-const Modal = (props: any): JSX.Element => {
+const Modal: React.FC<ModalComponentProps> = (props): JSX.Element => {
     const [isOpen, setIsOpen] = useState(false);
 
     const closeModal = () => {
