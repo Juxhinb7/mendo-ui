@@ -9,6 +9,8 @@ import {faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../elements/Modal";
 import ProjectCreation from "../../widgets/ProjectCreation";
 import ProjectEdit from "../../widgets/ProjectEdit";
+import ModalComponentProps from "../../../interfaces/modals/ModalComponentProps";
+import ProjectCreationComponentProps from "../../../interfaces/widgets/ProjectCreationComponentProps";
 
 const Projects: React.FC = (): JSX.Element => {
     const projectsURL = "https://starfish-app-hso4j.ondigitalocean.app/project_management/projects/";
@@ -36,6 +38,7 @@ const Projects: React.FC = (): JSX.Element => {
         })
     }, [token, projectTitle, projectDescription]);
 
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
@@ -60,15 +63,27 @@ const Projects: React.FC = (): JSX.Element => {
         event.preventDefault();
     }
 
+    const projectCreationProps: ProjectCreationComponentProps = {
+        submitHandler: handleSubmit,
+        setTitle: setProjectTitle,
+        setDescription: setProjectDescription
+    }
+
+
+    const projectCreationModalProps: ModalComponentProps = {
+        type: "button",
+        buttonTitle: "Add project",
+        dialogTitle: "Add project",
+        children: <ProjectCreation {...projectCreationProps}/>
+
+    }
 
 
     return (
         <SectionContainer title="Browse Projects">
             <div className="flex items-end justify-end">
                 <div className="mr-2">
-                    <Modal type="button" buttonTitle="Add project" dialogTitle="Add project">
-                        <ProjectCreation submitHandler={handleSubmit} setTitle={setProjectTitle} setDescription={setProjectDescription}/>
-                    </Modal>
+                    <Modal {...projectCreationModalProps} />
                 </div>
 
             </div>
@@ -91,7 +106,6 @@ const Projects: React.FC = (): JSX.Element => {
                                     <ProjectEdit id={entry.id} projectsURL={projectsURL} token={token} title={projectTitle} description={projectDescription} setDescription={setProjectDescription} setTitle={setProjectTitle} data={data} setData={setData}/>
                                 </Modal>
                                 <FontAwesomeIcon icon={faTrash} className=" text-red-600 cursor-pointer" onClick={(event: React.MouseEvent) => handleRemove(entry, event)}/>
-                                
                             </td>
                         </tr>
                     ))}
