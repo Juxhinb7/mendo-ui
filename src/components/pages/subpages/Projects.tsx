@@ -11,6 +11,8 @@ import ProjectCreation from "../../widgets/ProjectCreation";
 import ProjectEdit from "../../widgets/ProjectEdit";
 import ModalComponentProps from "../../../interfaces/modals/ModalComponentProps";
 import ProjectCreationComponentProps from "../../../interfaces/widgets/ProjectCreationComponentProps";
+import { EventNotificationAtom } from "../../stores/EventNotificationAtom";
+import { useAtom } from "jotai";
 
 const Projects: React.FC = (): JSX.Element => {
     const projectsURL = "https://starfish-app-hso4j.ondigitalocean.app/project_management/projects/";
@@ -20,6 +22,7 @@ const Projects: React.FC = (): JSX.Element => {
     const {token} = useToken();
     const [projectTitle, setProjectTitle] = useState<string>("");
     const [projectDescription, setProjectDescription] = useState<string>("");
+    const [, setEventNotification] = useAtom(EventNotificationAtom);
 
     useEffect(() => {
         axios({
@@ -47,19 +50,26 @@ const Projects: React.FC = (): JSX.Element => {
                 ...data,
                 response.data
             ]);
+            setEventNotification("Project successfully added");
         } catch (error: unknown) {
             console.log(error);
+            setEventNotification("Failed adding project");
         }
 
 
     }
 
     const handleRemove = async (entry: {[key: string]: string}, event: React.MouseEvent) => {
-        const response = await axios({method: "DELETE", url: projectsURL + entry.id + "/", headers: {Authorization: "Bearer " + token}});
-        console.log(response);
-        setData(
-            data?.filter((m: {[key: string]: string}) => m.id != entry.id)
-        );
+        try {
+            const response = await axios({method: "DELETE", url: projectsURL + entry.id + "/", headers: {Authorization: "Bearer " + token}});
+            console.log(response);
+            setData(data?.filter((m: {[key: string]: string}) => m.id != entry.id));
+            setEventNotification("Project successfully removed");
+        } catch(error: unknown) {
+            console.log(error);
+            setEventNotification("Failed removing project");
+
+        }
         event.preventDefault();
     }
 
@@ -100,7 +110,7 @@ const Projects: React.FC = (): JSX.Element => {
                         <tr key={entry.id} className="hover:bg-gray-50">
                             <td className="px-1 sm:px-6 py-4">{entry.id}</td>
                             <td className="px-1 sm:px-6 py-4">{entry.user}</td>
-                            <td className="px-1 sm:px-6 py-4"><Link to={`/my-environment/projects/${entry.id}/`}>{entry.title}</Link></td>
+                            <td className="px-1 sm:px-6 py-4"><Link to={`/my-environment/workspace/projects/${entry.id}/`}>{entry.title}</Link></td>
                             <td className="px-1 sm:px-6 py-4 space-x-4">
                                 <Modal type="fontAwesome" dialogTitle="Edit project" icon={faEdit}>
                                     <ProjectEdit id={entry.id} projectsURL={projectsURL} token={token} title={projectTitle} description={projectDescription} setDescription={setProjectDescription} setTitle={setProjectTitle} data={data} setData={setData}/>

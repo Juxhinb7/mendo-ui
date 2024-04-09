@@ -1,4 +1,4 @@
-import { faBriefcase, faClipboardList, faGear, faHome} from "@fortawesome/free-solid-svg-icons";
+import { faBriefcase, faGear, faHome} from "@fortawesome/free-solid-svg-icons";
 import Person from "../../assets/thispersondoesnotexist.jpg";
 import Profile from "../elements/Profile";
 import Logo from "../elements/Logo";
@@ -11,7 +11,6 @@ const Sidebar: React.FC = (): JSX.Element => {
     const location = useLocation();
     const paths = {
         homePath: "/my-environment/home",
-        projectsPath: "/my-environment/projects",
         workspacePath: "/my-environment/workspace",
         settingsPath: "/my-environment/settings"
     }
@@ -27,10 +26,7 @@ const Sidebar: React.FC = (): JSX.Element => {
                 <div className={`${location.pathname === paths.homePath ?  NAVLINK_STYLE : ""}`}>
                     <NavLink title="Home" currentPath={paths.homePath} icon={faHome}/>
                 </div>
-                <div className={`${location.pathname.includes("projects") ?  NAVLINK_STYLE : ""}`}>
-                    <NavLink title="Projects" currentPath={paths.projectsPath} icon={faClipboardList}/>
-                </div>
-                <div className={`${location.pathname === paths.workspacePath ?  NAVLINK_STYLE : ""}`}>
+                <div className={`${location.pathname.includes(paths.workspacePath) ?  NAVLINK_STYLE : ""}`}>
                     <NavLink title="Workspace" currentPath={paths.workspacePath} icon={faBriefcase}/>
                 </div>
                 <div className={`${location.pathname === paths.settingsPath ?  NAVLINK_STYLE : ""}`}>

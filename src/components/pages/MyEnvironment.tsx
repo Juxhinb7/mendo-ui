@@ -14,19 +14,29 @@ import ProjectDetail from "../details/ProjectDetail";
 import HashtagDetail from "../details/HashtagDetail";
 import SprintDetail from "../details/SprintDetail";
 import EpicDetail from "../details/EpicDetail";
+import { EventNotificationReadOnlyAtom } from "../stores/EventNotificationAtom";
+import { useAtom } from "jotai";
+
 
 const MyEnvironment: React.FC = (): JSX.Element => {
 
     const { saveBackground, background } = useBackground();
+    const [eventNotificationText] = useAtom(EventNotificationReadOnlyAtom);
 
     return (
             <div className="flex min-h-screen">
-
+                
                 <div className="hidden border-r-2 border-dotted 2xl:block w-[16rem]">
                      <Sidebar />
                 </div>
 
-                <div className={`flex w-full flex-col ${background}`}>
+                <div className={`flex relative w-full flex-col ${background}`}>
+                    {eventNotificationText && (
+                        <div className="absolute z-10 left-0 right-0">
+                            {eventNotificationText}
+                        </div>
+                    )}
+
                     <HorizontalBar />
 
                     <div className="flex">
@@ -37,12 +47,12 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                                         <Home />
                                     </BackgroundHandlerContext.Provider>
                                 }/>
-                                <Route path="/projects" element={<Projects />} />
-                                <Route path="/projects/:id" element={<ProjectDetail />}/>
-                                <Route path="/projects/hashtags/:id" element={<HashtagDetail />} />
-                                <Route path="/projects/sprints/:id" element={<SprintDetail />} />
-                                <Route path="/projects/epics/:id" element={<EpicDetail />} />
                                 <Route path="/workspace" element={<Workspace />} />
+                                <Route path="/workspace/projects" element={<Projects />} />
+                                <Route path="/workspace/projects/:id" element={<ProjectDetail />}/>
+                                <Route path="/workspace/projects/hashtags/:id" element={<HashtagDetail />} />
+                                <Route path="/workspace/projects/sprints/:id" element={<SprintDetail />} />
+                                <Route path="/workspace/projects/epics/:id" element={<EpicDetail />} />
                                 <Route path ="/settings" element={<Settings />} /> 
                             </Routes>
                         </ContentContainer>

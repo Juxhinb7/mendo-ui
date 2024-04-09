@@ -6,8 +6,11 @@ import Button from "../elements/Button";
 import Form from "../elements/Form";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import { useAtom } from "jotai";
+import { EventNotificationAtom } from "../stores/EventNotificationAtom";
 
 const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element => {
+    const [, setEventNotification] = useAtom(EventNotificationAtom)
 
     useEffect(() => {
         axios({method: "GET", url: props.projectsURL + props.id + "/", headers: {Authorization: "Bearer " + props.token}})
@@ -41,6 +44,7 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
                     }
                 })
             );
+            setEventNotification("Project succesfully updated");
         }).catch((error: AxiosError) => {
             console.log(error.response);
         } )
