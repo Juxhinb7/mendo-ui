@@ -6,17 +6,22 @@ import Button from "../elements/Button";
 import Form from "../elements/Form";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-import { useAtom } from "jotai";
-import { EventNotificationAtom } from "../stores/EventNotificationAtom";
+import { useAtom, useSetAtom } from "jotai";
+import {EventNotificationAtom} from "../stores/EventNotificationStore";
+import { ProjectDescriptionAtom, ProjectTitleAtom } from "../stores/ProjectDetailStore";
+import useToken from "../../hooks/useToken";
 
 const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element => {
-    const [, setEventNotification] = useAtom(EventNotificationAtom)
+    const {token} = useToken();
+    const [projectTitle, setProjectTitle] = useAtom(ProjectTitleAtom);
+    const [projectDescription, setProjectDescription] = useAtom(ProjectDescriptionAtom)
+    const setEventNotification = useSetAtom(EventNotificationAtom);
 
     useEffect(() => {
-        axios({method: "GET", url: props.projectsURL + props.id + "/", headers: {Authorization: "Bearer " + props.token}})
+        axios({method: "GET", url: props.projectsURL + props.id + "/", headers: {Authorization: "Bearer " + token}})
         .then(res => {
-            props.setTitle(res.data.title);
-            props.setDescription(res.data.description);
+            setProjectTitle(res.data.title);
+            setProjectDescription(res.data.description);
         })
         .catch(err => {console.log(err)});
     }, []);
@@ -27,11 +32,11 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
             method: "PUT",
             url: props.projectsURL + props.id + "/",
             data: {
-                title: props.title,
-                description: props.description
+                title: projectTitle,
+                description: projectDescription
             },
             headers: {
-                Authorization: "Bearer " + props.token
+                Authorization: "Bearer " + token
             }
         }).then((response: AxiosResponse) => {
             console.log(response.data);
@@ -57,11 +62,11 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
         <div className="text-sm text-gray-600 mt-4">
             <Form withoutStyle={true} submitHandler={handleEdit} method="PUT">
                 <div>
-                    <Input type="text" placeholder="Title" value={props.title} onChange={event => props.setTitle(event.target.value)}/>
+                    <Input type="text" placeholder="Title" value={projectTitle} onChange={event => setProjectTitle(event.target.value)}/>
                 </div>
 
                 <div className="mt-4">
-                    <ReactQuill className="h-64" placeholder="Description" value={props.description} onChange={props.setDescription} />
+                    <ReactQuill className="h-64" placeholder="Description" value={projectDescription} onChange={setProjectDescription} />
                 </div>  
 
                 <div className="mt-14">

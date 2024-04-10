@@ -36,10 +36,10 @@ const DetailList: React.FC<DetailListComponentProps> = (props): JSX.Element => {
                         </thead>
                         <tbody className="border-t divide-y">
 
-                                {props.subData.map((item: {[key: string]: string}) => (
+                                {props.subData.map((item: {[key: string]: string}, index: number) => (
                                     <tr className="hover:bg-gray-50" key={item.id}>
                                         <td>
-                                            <p>{item.id}</p>
+                                            <p>{index}</p>
                                         </td>
                                         <td>
                                             <Link to={props.url + item.id}>

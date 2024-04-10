@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AlertComponentProps from "../../interfaces/alerts/AlertComponentProps";
 import StatusAlertComponentProps from "../../interfaces/alerts/StatusAlertComponentProps";
 import { faCheckCircle, faTriangleExclamation, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { ComponentHandlerContext } from "../../contexts/ComponentHandlerContext";
-import { useContext } from "react";
+import { useAtom } from "jotai";
+import ToggleAtom from "../stores/ToggleStore";
 
 const Alert: React.FC<AlertComponentProps> = (props): JSX.Element => {
-    const setToggle = useContext(ComponentHandlerContext);
+    const [toggle, setToggle] = useAtom(ToggleAtom);
     return (
         <div className={`py-1 font-medium rounded-md shadow-sm ${props.customStyle}`}>
             <div className="flex justify-between mx-3">
@@ -14,9 +14,10 @@ const Alert: React.FC<AlertComponentProps> = (props): JSX.Element => {
                 
                 {props.children}
 
-                <button onClick={() => setToggle(false)}>
-                    <FontAwesomeIcon icon={faXmark} />
-                </button>
+                    <button onClick={() => setToggle(!toggle)}>
+                        <FontAwesomeIcon icon={faXmark} />
+                    </button>
+
             </div>
 
 

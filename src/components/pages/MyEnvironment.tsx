@@ -14,14 +14,17 @@ import ProjectDetail from "../details/ProjectDetail";
 import HashtagDetail from "../details/HashtagDetail";
 import SprintDetail from "../details/SprintDetail";
 import EpicDetail from "../details/EpicDetail";
-import { EventNotificationReadOnlyAtom } from "../stores/EventNotificationAtom";
-import { useAtom } from "jotai";
+import { EventNotificationReadOnlyAtom } from "../stores/EventNotificationStore";
+import { useAtomValue } from "jotai";
+import { SuccessAlert } from "../elements/alerts";
+import ToggleAtom from "../stores/ToggleStore";
 
 
 const MyEnvironment: React.FC = (): JSX.Element => {
 
     const { saveBackground, background } = useBackground();
-    const [eventNotificationText] = useAtom(EventNotificationReadOnlyAtom);
+    const eventNotificationText = useAtomValue(EventNotificationReadOnlyAtom);
+    const toggle = useAtomValue(ToggleAtom);
 
     return (
             <div className="flex min-h-screen">
@@ -32,9 +35,16 @@ const MyEnvironment: React.FC = (): JSX.Element => {
 
                 <div className={`flex relative w-full flex-col ${background}`}>
                     {eventNotificationText && (
-                        <div className="absolute z-10 left-0 right-0">
-                            {eventNotificationText}
-                        </div>
+                        <>
+                        {toggle && (
+                            <div className="absolute z-10 left-0 right-0">
+                                <SuccessAlert message={eventNotificationText}/>
+                            </div>
+                        )}
+
+                        </>
+
+
                     )}
 
                     <HorizontalBar />

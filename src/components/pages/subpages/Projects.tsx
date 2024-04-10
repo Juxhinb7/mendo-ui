@@ -11,18 +11,22 @@ import ProjectCreation from "../../widgets/ProjectCreation";
 import ProjectEdit from "../../widgets/ProjectEdit";
 import ModalComponentProps from "../../../interfaces/modals/ModalComponentProps";
 import ProjectCreationComponentProps from "../../../interfaces/widgets/ProjectCreationComponentProps";
-import { EventNotificationAtom } from "../../stores/EventNotificationAtom";
-import { useAtom } from "jotai";
+import {EventNotificationAtom} from "../../stores/EventNotificationStore";
+import { useAtomValue, useSetAtom } from "jotai";
+import { ProjectDescriptionReadOnlyAtom, ProjectTitleReadOnlyAtom } from "../../stores/ProjectDetailStore";
+import ToggleAtom from "../../stores/ToggleStore";
+
 
 const Projects: React.FC = (): JSX.Element => {
     const projectsURL = "https://starfish-app-hso4j.ondigitalocean.app/project_management/projects/";
     const [data, setData] = useState<{[key: string]: string}[]>([]);
 
-    const HEADINGS = ["Id", "User", "Project Title", "Action"];
+    const HEADINGS = ["#", "User", "Project Title", "Action"];
     const {token} = useToken();
-    const [projectTitle, setProjectTitle] = useState<string>("");
-    const [projectDescription, setProjectDescription] = useState<string>("");
-    const [, setEventNotification] = useAtom(EventNotificationAtom);
+    const projectTitle = useAtomValue(ProjectTitleReadOnlyAtom);
+    const projectDescription = useAtomValue(ProjectDescriptionReadOnlyAtom);
+    const setEventNotification = useSetAtom(EventNotificationAtom);
+    const setToggle = useSetAtom(ToggleAtom);
 
     useEffect(() => {
         axios({
@@ -51,9 +55,11 @@ const Projects: React.FC = (): JSX.Element => {
                 response.data
             ]);
             setEventNotification("Project successfully added");
+            setToggle(true);
         } catch (error: unknown) {
             console.log(error);
             setEventNotification("Failed adding project");
+            setToggle(true);
         }
 
 
@@ -65,9 +71,11 @@ const Projects: React.FC = (): JSX.Element => {
             console.log(response);
             setData(data?.filter((m: {[key: string]: string}) => m.id != entry.id));
             setEventNotification("Project successfully removed");
+            setToggle(true);
         } catch(error: unknown) {
             console.log(error);
             setEventNotification("Failed removing project");
+            setToggle(true);
 
         }
         event.preventDefault();
@@ -75,8 +83,6 @@ const Projects: React.FC = (): JSX.Element => {
 
     const projectCreationProps: ProjectCreationComponentProps = {
         submitHandler: handleSubmit,
-        setTitle: setProjectTitle,
-        setDescription: setProjectDescription
     }
 
 
@@ -106,14 +112,14 @@ const Projects: React.FC = (): JSX.Element => {
                     </tr>
                 </thead>
                 <tbody className="border-t divide-y">
-                    {data != undefined && data.map((entry: {[key: string]: string}) => (
+                    {data != undefined && data.map((entry: {[key: string]: string}, index: number) => (
                         <tr key={entry.id} className="hover:bg-gray-50">
-                            <td className="px-1 sm:px-6 py-4">{entry.id}</td>
+                            <td className="px-1 sm:px-6 py-4">{index}</td>
                             <td className="px-1 sm:px-6 py-4">{entry.user}</td>
                             <td className="px-1 sm:px-6 py-4"><Link to={`/my-environment/workspace/projects/${entry.id}/`}>{entry.title}</Link></td>
                             <td className="px-1 sm:px-6 py-4 space-x-4">
                                 <Modal type="fontAwesome" dialogTitle="Edit project" icon={faEdit}>
-                                    <ProjectEdit id={entry.id} projectsURL={projectsURL} token={token} title={projectTitle} description={projectDescription} setDescription={setProjectDescription} setTitle={setProjectTitle} data={data} setData={setData}/>
+                                    <ProjectEdit id={entry.id} projectsURL={projectsURL} data={data} setData={setData}/>
                                 </Modal>
                                 <FontAwesomeIcon icon={faTrash} className=" text-red-600 cursor-pointer" onClick={(event: React.MouseEvent) => handleRemove(entry, event)}/>
                             </td>
