@@ -10,12 +10,14 @@ import { useAtom, useSetAtom } from "jotai";
 import {EventNotificationAtom} from "../stores/EventNotificationStore";
 import { ProjectDescriptionAtom, ProjectTitleAtom } from "../stores/ProjectDetailStore";
 import useToken from "../../hooks/useToken";
+import { ToggleAtom } from "../stores/ToggleStore";
 
 const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element => {
     const {token} = useToken();
     const [projectTitle, setProjectTitle] = useAtom(ProjectTitleAtom);
     const [projectDescription, setProjectDescription] = useAtom(ProjectDescriptionAtom)
     const setEventNotification = useSetAtom(EventNotificationAtom);
+    const setToggle = useSetAtom(ToggleAtom);
 
     useEffect(() => {
         axios({method: "GET", url: props.projectsURL + props.id + "/", headers: {Authorization: "Bearer " + token}})
@@ -56,6 +58,7 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
                     isSuccess: true
                 }
             });
+            setToggle(true);
         }).catch((error: AxiosError) => {
             console.log(error.response);
             setEventNotification((prevState) => {
@@ -64,7 +67,8 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
                     text: "Failed updating project",
                     isSuccess: false
                 }
-            })
+            });
+            setToggle(true);
         } )
 
     }

@@ -16,7 +16,7 @@ import SprintDetail from "../details/SprintDetail";
 import EpicDetail from "../details/EpicDetail";
 import { EventNotificationReadOnlyAtom } from "../stores/EventNotificationStore";
 import { useAtomValue } from "jotai";
-import { SuccessAlert } from "../elements/alerts";
+import { ErrorAlert, SuccessAlert } from "../elements/alerts";
 import {ToggleReadOnlyAtom} from "../stores/ToggleStore";
 import { useRef } from "react";
 
@@ -24,7 +24,7 @@ import { useRef } from "react";
 const MyEnvironment: React.FC = (): JSX.Element => {
 
     const { saveBackground, background } = useBackground();
-    const eventNotificationText = useAtomValue(EventNotificationReadOnlyAtom);
+    const eventNotification = useAtomValue(EventNotificationReadOnlyAtom);
     const toggle = useAtomValue(ToggleReadOnlyAtom);
     
     const sidebarContainer = useRef<HTMLDivElement>(null!);
@@ -37,17 +37,25 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                      <Sidebar />
                 </div>
                 <div className={`flex relative w-full flex-col ${background}`}>
-                    {eventNotificationText.isSuccess && (
+                    {eventNotification.isSuccess && (
                         <>
-                        {toggle && (
-                            <div className="absolute z-10 left-0 right-0">
-                                <SuccessAlert message={eventNotificationText.text}/>
-                            </div>
-                        )}
+                            {toggle && (
+                                <div className="absolute z-10 left-0 right-0">
+                                    <SuccessAlert message={eventNotification.text}/>
+                                </div>
+                    )}
+                        </>
+                    )}
+
+                    {!eventNotification.isSuccess && (
+                        <>
+                            {toggle && (
+                                <div className="absolute z-10 left-0 right-0">
+                                    <ErrorAlert message={eventNotification.text} />
+                                </div>
+                            )}
 
                         </>
-
-
                     )}
 
                     <HorizontalBar />
