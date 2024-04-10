@@ -17,28 +17,31 @@ import EpicDetail from "../details/EpicDetail";
 import { EventNotificationReadOnlyAtom } from "../stores/EventNotificationStore";
 import { useAtomValue } from "jotai";
 import { SuccessAlert } from "../elements/alerts";
-import ToggleAtom from "../stores/ToggleStore";
+import {ToggleReadOnlyAtom} from "../stores/ToggleStore";
+import { useRef } from "react";
 
 
 const MyEnvironment: React.FC = (): JSX.Element => {
 
     const { saveBackground, background } = useBackground();
     const eventNotificationText = useAtomValue(EventNotificationReadOnlyAtom);
-    const toggle = useAtomValue(ToggleAtom);
+    const toggle = useAtomValue(ToggleReadOnlyAtom);
+    
+    const sidebarContainer = useRef<HTMLDivElement>(null!);
 
     return (
             <div className="flex min-h-screen">
+
                 
-                <div className="hidden border-r-2 border-dotted 2xl:block w-[16rem]">
+                <div onClick={() => sidebarContainer.current?.setAttribute("hidden", "hidden")} ref={sidebarContainer} className="hidden border-r-2 border-dotted 2xl:block w-[16rem]">
                      <Sidebar />
                 </div>
-
                 <div className={`flex relative w-full flex-col ${background}`}>
-                    {eventNotificationText && (
+                    {eventNotificationText.isSuccess && (
                         <>
                         {toggle && (
                             <div className="absolute z-10 left-0 right-0">
-                                <SuccessAlert message={eventNotificationText}/>
+                                <SuccessAlert message={eventNotificationText.text}/>
                             </div>
                         )}
 

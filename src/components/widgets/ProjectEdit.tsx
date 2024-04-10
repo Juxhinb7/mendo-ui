@@ -24,7 +24,7 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
             setProjectDescription(res.data.description);
         })
         .catch(err => {console.log(err)});
-    }, []);
+    }, [props.id, props.projectsURL, setProjectDescription, setProjectTitle, token]);
 
     const handleEdit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -40,8 +40,8 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
             }
         }).then((response: AxiosResponse) => {
             console.log(response.data);
-            props.setData(
-                props.data.map((entry: {[key: string]: string}) => {
+            props.setData && props.setData(
+                props.data && props.data.map((entry: {[key: string]: string}) => {
                     if (entry.id == props.id) {
                         return {...entry, id: props.id, title: response.data.title, description: response.data.description}
                     } else {
@@ -49,9 +49,22 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
                     }
                 })
             );
-            setEventNotification("Project succesfully updated");
+            setEventNotification((prevState) => {
+                return {
+                    ...prevState,
+                    text: "Project successfully updated",
+                    isSuccess: true
+                }
+            });
         }).catch((error: AxiosError) => {
             console.log(error.response);
+            setEventNotification((prevState) => {
+                return {
+                    ...prevState,
+                    text: "Failed updating project",
+                    isSuccess: false
+                }
+            })
         } )
 
     }

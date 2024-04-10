@@ -20,7 +20,7 @@ const Home: React.FC = () => {
             </h1>
             <div className="flex flex-col 2xl:flex-row items-end justify-end 2xl:space-x-6 mt-24">
                 <div className="flex">
-                    <Modal  type="button" buttonTitle="Customize" dialogTitle="Customization">
+                    <Modal type="button" buttonTitle="Customize" dialogTitle="Customization">
                         <CustomizationMenu setBackground={setBackground}/>
                     </Modal>
                 </div>

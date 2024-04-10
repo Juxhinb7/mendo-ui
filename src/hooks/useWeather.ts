@@ -5,7 +5,7 @@ const useWeather = () => {
     const [weatherData, setWeatherData] = useState({});
     const [processing, setProcessing] = useState<undefined | boolean>();
 
-    const fetchData = (coordinates: {[key: string]: number} = {latitude: 0, longitude: 0}) => {
+    const fetchData = (coordinates: {[key: string]: number | undefined} = {latitude: 0, longitude: 0}) => {
         setProcessing(true);
         axios({
             method: "GET",

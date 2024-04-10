@@ -5,7 +5,7 @@ import useToken from "../../../hooks/useToken";
 import { Link } from "react-router-dom";
 import SectionContainer from "../../containers/SectionContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faFaceSadTear } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../elements/Modal";
 import ProjectCreation from "../../widgets/ProjectCreation";
 import ProjectEdit from "../../widgets/ProjectEdit";
@@ -14,12 +14,14 @@ import ProjectCreationComponentProps from "../../../interfaces/widgets/ProjectCr
 import {EventNotificationAtom} from "../../stores/EventNotificationStore";
 import { useAtomValue, useSetAtom } from "jotai";
 import { ProjectDescriptionReadOnlyAtom, ProjectTitleReadOnlyAtom } from "../../stores/ProjectDetailStore";
-import ToggleAtom from "../../stores/ToggleStore";
+import {ToggleAtom} from "../../stores/ToggleStore";
+import ConfirmModal from "../../elements/ConfirmModal";
+import ConfirmationDialog from "../../widgets/ConfirmationDialog";
 
 
 const Projects: React.FC = (): JSX.Element => {
     const projectsURL = "https://starfish-app-hso4j.ondigitalocean.app/project_management/projects/";
-    const [data, setData] = useState<{[key: string]: string}[]>([]);
+    const [data, setData] = useState<{[key: string]: string}[] | undefined>();
 
     const HEADINGS = ["#", "User", "Project Title", "Action"];
     const {token} = useToken();
@@ -49,16 +51,36 @@ const Projects: React.FC = (): JSX.Element => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const response: AxiosResponse = await axios({method: "POST", url: projectsURL, data: {title: projectTitle, description: projectDescription}, headers: {Authorization: "Bearer " + token}});
-            setData([
+            const response: AxiosResponse = await axios({method: "POST", 
+                url: projectsURL, 
+                data: {
+                    title: projectTitle, 
+                    description: projectDescription
+                }, 
+                headers: {
+                    Authorization: "Bearer " + token
+                }});
+            data && setData([
                 ...data,
                 response.data
             ]);
-            setEventNotification("Project successfully added");
+            setEventNotification((prevState) => {
+                return {
+                    ...prevState,
+                    text: "Project succesfully added",
+                    isSuccess: true
+                }
+            });
             setToggle(true);
         } catch (error: unknown) {
             console.log(error);
-            setEventNotification("Failed adding project");
+            setEventNotification((prevState) => {
+                return {
+                    ...prevState,
+                    text: "Failed adding project",
+                    isSuccess: false
+                }
+            });
             setToggle(true);
         }
 
@@ -70,11 +92,23 @@ const Projects: React.FC = (): JSX.Element => {
             const response = await axios({method: "DELETE", url: projectsURL + entry.id + "/", headers: {Authorization: "Bearer " + token}});
             console.log(response);
             setData(data?.filter((m: {[key: string]: string}) => m.id != entry.id));
-            setEventNotification("Project successfully removed");
+            setEventNotification((prevState) => {
+                return {
+                    ...prevState,
+                    text: "Project successfully removed",
+                    isSuccess: true
+                }
+            });
             setToggle(true);
         } catch(error: unknown) {
             console.log(error);
-            setEventNotification("Failed removing project");
+            setEventNotification((prevState) => {
+                return {
+                    ...prevState,
+                    text: "Failed removing project",
+                    isSuccess: false
+                }
+            });
             setToggle(true);
 
         }
@@ -121,11 +155,22 @@ const Projects: React.FC = (): JSX.Element => {
                                 <Modal type="fontAwesome" dialogTitle="Edit project" icon={faEdit}>
                                     <ProjectEdit id={entry.id} projectsURL={projectsURL} data={data} setData={setData}/>
                                 </Modal>
-                                <FontAwesomeIcon icon={faTrash} className=" text-red-600 cursor-pointer" onClick={(event: React.MouseEvent) => handleRemove(entry, event)}/>
+                                <ConfirmModal dialogTitle="Apply changes">
+                                    <ConfirmationDialog handleRemove={(event: React.MouseEvent) => handleRemove(entry, event)} />
+                                </ConfirmModal>
                             </td>
                         </tr>
                     ))}
+                    {data != undefined && data.length == 0 && (
+                        <div className="absolute right-0 left-0 mt-4">
+                            <FontAwesomeIcon className="text-gray-600" icon={faFaceSadTear} size="2xl"/>
+                            <p className="">No entries were found</p>
+                        </div>
+                    )}
+
                 </tbody>
+
+                
             </TableContainer>
         </SectionContainer>
     )

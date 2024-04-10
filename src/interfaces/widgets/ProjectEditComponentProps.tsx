@@ -1,8 +1,8 @@
 interface ProjectEditComponentProps {
     id: string;
     projectsURL: string;
-    data: {[key: string]: string}[];
-    setData: React.Dispatch<React.SetStateAction<{[key: string]: string}[]>>;
+    data: {[key: string]: string}[] | undefined;
+    setData: React.Dispatch<React.SetStateAction<{[key: string]: string}[] | undefined>>;
     
 }
 

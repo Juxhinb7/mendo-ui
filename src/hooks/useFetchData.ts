@@ -13,7 +13,7 @@ const useFetchData = (url: string, token: string | null) => {
             console.log(error.response);
         }
 
-    }, []);
+    }, [token, url]);
 
     const fetchData = async () => {
         

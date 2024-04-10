@@ -11,6 +11,7 @@ const Weather: React.FC = (): JSX.Element => {
     useEffect(() => {
         getUserLocation();
         fetchData({latitude: userLocation.latitude, longitude: userLocation.longitude});
+
                 
     }, [userLocation.latitude]);
     

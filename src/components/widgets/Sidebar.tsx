@@ -6,7 +6,7 @@ import NavLink from "../elements/NavLink";
 import { useLocation } from "react-router-dom";
 import UserID from "../elements/UserID";
 
-const Sidebar: React.FC = (): JSX.Element => {
+const Sidebar = (): JSX.Element => {
     const NAVLINK_STYLE = "bg-gradient-to-l from-cyan-100 border-r-4 border-cyan-600 text-cyan-600";
     const location = useLocation();
     const paths = {
@@ -32,6 +32,7 @@ const Sidebar: React.FC = (): JSX.Element => {
                 <div className={`${location.pathname === paths.settingsPath ?  NAVLINK_STYLE : ""}`}>
                     <NavLink title="Settings" currentPath={paths.settingsPath} icon={faGear}/>
                 </div>
+
 
 
         </div>

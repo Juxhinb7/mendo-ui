@@ -3,7 +3,7 @@ import AlertComponentProps from "../../interfaces/alerts/AlertComponentProps";
 import StatusAlertComponentProps from "../../interfaces/alerts/StatusAlertComponentProps";
 import { faCheckCircle, faTriangleExclamation, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useAtom } from "jotai";
-import ToggleAtom from "../stores/ToggleStore";
+import {ToggleAtom} from "../stores/ToggleStore";
 
 const Alert: React.FC<AlertComponentProps> = (props): JSX.Element => {
     const [toggle, setToggle] = useAtom(ToggleAtom);
