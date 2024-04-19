@@ -11,8 +11,8 @@ import useSubmitCredentials from "../../hooks/useSubmitCredentials";
 
 const SignIn = () => {
     const URL = "https://starfish-app-hso4j.ondigitalocean.app/users/api/login/";
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const [email, setEmail] = useState<string>("testuser@mendo.com");
+    const [password, setPassword] = useState<string>("testuser99");
     const { setToken } = useToken();
     const submitProps = useSubmitCredentials(URL, {email, password}, setToken, {redirectUrl: "/my-environment/home"});
     return (
@@ -35,10 +35,10 @@ const SignIn = () => {
                     </ComponentHandlerContext.Provider>
                 )}
                 <InputErrorBoundary error={(submitProps.errorObject as any)?.email}>
-                    <Input type="email" placeholder="Enter email" onChange={event => setEmail(event.target.value)}/>                
+                    <Input type="email" value={email} placeholder="Enter email" onChange={event => setEmail(event.target.value)}/>                
                 </InputErrorBoundary>
                 <InputErrorBoundary error={(submitProps.errorObject as any)?.password}>
-                    <Input type="password" placeholder="Enter password" onChange={event => setPassword(event.target.value)}/>
+                    <Input type="password" value={password} placeholder="Enter password" onChange={event => setPassword(event.target.value)}/>
                 </InputErrorBoundary>
                 <Button title="Sign in" type="submit" processing={submitProps.processing}/>
                 

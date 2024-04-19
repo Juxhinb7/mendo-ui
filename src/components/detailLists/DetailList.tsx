@@ -5,13 +5,20 @@ import SectionContainer from "../containers/SectionContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import Button from "../elements/Button";
 
 
 const DetailList: React.FC<DetailListComponentProps> = (props): JSX.Element => {
-    const handleRemove = async (item: {[key: string]: string}, e: React.MouseEvent) => {
-        const response = await axios({ method: "DELETE", url: props.serverURL + props.serverRoute + item.id, headers: { Authorization: "Bearer " + props.token }});
+
+    const handleSubmit = async() => {
+        const response = await axios({method: "POST", url: props.serverURL + props.serverRoute, headers: { Authorization: "Bearer " + props.token}});
         console.log(response);
-        const filteredSubData = props.data[props.someKey].filter((m: any) => m.id != item.id);
+    }
+
+    const handleRemove = async (item: {[key: string]: string}, e: React.MouseEvent) => {
+        const response = await axios({ method: "DELETE", url: props.serverURL + props.serverRoute + item.id + "/", headers: { Authorization: "Bearer " + props.token }});
+        console.log(response);
+        const filteredSubData = props.data[props.someKey].filter((m: {[key: string]: string}) => m.id != item.id);
         props.setData((prevData: any) => {
             return {
                 ...prevData,
@@ -26,7 +33,13 @@ const DetailList: React.FC<DetailListComponentProps> = (props): JSX.Element => {
         <div>
             <div className="2xl:w-96  mx-auto mt-4 mb-4">
                 <SectionContainer title={props.title}>
-                    <TableContainer twHeight="max-h-[15vh]">
+                    <div className="flex justify-end mr-4">
+                        <div className="w-32 mt-4">
+                            <Button onClick={handleSubmit} type="button" title={"Add " + props.someKey.substring(0, props.someKey.length - 1)}/>
+                        </div>
+                    </div>
+
+                    <TableContainer data={props.data} twHeight="max-h-[15vh]">
                         <thead className="bg-gray-50 sticky top-0">
                             <tr className="hover:bg-gray-50">
                                 {props.headings.map((heading: string) => (

@@ -6,7 +6,7 @@ interface InputComponentProps {
     marginTop?: TwMarginTop;
     type: HTMLInputTypeAttribute;
     name?: string;
-    placeholder: string;
+    placeholder?: string;
     value?: string | number | readonly string[] | undefined;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

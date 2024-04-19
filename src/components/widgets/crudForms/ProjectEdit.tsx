@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import ProjectEditComponentProps from "../../interfaces/widgets/ProjectEditComponentProps";
+import ProjectEditComponentProps from "../../../interfaces/widgets/ProjectEditComponentProps";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import Input from "../elements/Input";
-import Button from "../elements/Button";
-import Form from "../elements/Form";
+import Input from "../../elements/Input";
+import Button from "../../elements/Button";
+import Form from "../../elements/Form";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { useAtom, useSetAtom } from "jotai";
-import {EventNotificationAtom} from "../stores/EventNotificationStore";
-import { ProjectDescriptionAtom, ProjectTitleAtom } from "../stores/ProjectDetailStore";
-import useToken from "../../hooks/useToken";
-import { ToggleAtom } from "../stores/ToggleStore";
+import {EventNotificationAtom} from "../../stores/EventNotificationStore";
+import { ProjectDescriptionAtom, ProjectTitleAtom } from "../../stores/ProjectDetailStore";
+import useToken from "../../../hooks/useToken";
+import { ToggleAtom } from "../../stores/ToggleStore";
 
 const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element => {
     const {token} = useToken();
@@ -59,6 +59,9 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
                 }
             });
             setToggle(true);
+            setTimeout(() => {
+                setToggle(false);
+            }, 1000);
         }).catch((error: AxiosError) => {
             console.log(error.response);
             setEventNotification((prevState) => {
@@ -69,6 +72,9 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
                 }
             });
             setToggle(true);
+            setTimeout(() => {
+                setToggle(false);
+            })
         } )
 
     }

@@ -1,7 +1,13 @@
 import Profile from "./Profile";
 import UserID from "./UserID";
 
-const Comment = (props: any): JSX.Element => {
+type CommentProps = {
+    profileImage: string;
+    title: string;
+    text: string;
+}
+
+const Comment = (props: CommentProps): JSX.Element => {
     return (
         <div className="mb-8 text-xs 2xl:text-lg">
             <div className="flex flex-row">

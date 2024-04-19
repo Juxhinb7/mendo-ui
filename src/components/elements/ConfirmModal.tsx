@@ -1,9 +1,16 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dialog, Transition } from "@headlessui/react"
-import { Fragment, useState } from "react"
+import { Fragment, createContext, useState } from "react"
 
-const ConfirmModal = (props: any) => {
+type  ConfirmModalProps = {
+    dialogTitle: string;
+    children: React.ReactNode;
+}
+
+export const ConfirmModalContext = createContext<(React.Dispatch<React.SetStateAction<boolean>>)>(null!);
+
+const ConfirmModal = (props: ConfirmModalProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -37,9 +44,11 @@ const ConfirmModal = (props: any) => {
                                     <Dialog.Title>
                                         {props.dialogTitle}
                                     </Dialog.Title>
-                                    <div className="mt-2">
-                                        {props.children}
-                                    </div>
+                                    <ConfirmModalContext.Provider value={setIsOpen}>
+                                        <div className="mt-2">
+                                            {props.children}
+                                        </div>
+                                    </ConfirmModalContext.Provider>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

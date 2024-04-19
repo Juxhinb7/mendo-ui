@@ -4,11 +4,10 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import useToken from "../../../hooks/useToken";
 import { Link } from "react-router-dom";
 import SectionContainer from "../../containers/SectionContainer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faEdit, faFaceSadTear } from "@fortawesome/free-solid-svg-icons";
+import {faEdit } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../../elements/Modal";
-import ProjectCreation from "../../widgets/ProjectCreation";
-import ProjectEdit from "../../widgets/ProjectEdit";
+import ProjectCreation from "../../widgets/crudForms/ProjectCreation";
+import ProjectEdit from "../../widgets/crudForms/ProjectEdit";
 import ModalComponentProps from "../../../interfaces/modals/ModalComponentProps";
 import ProjectCreationComponentProps from "../../../interfaces/widgets/ProjectCreationComponentProps";
 import {EventNotificationAtom} from "../../stores/EventNotificationStore";
@@ -17,6 +16,7 @@ import { ProjectDescriptionReadOnlyAtom, ProjectTitleReadOnlyAtom } from "../../
 import {ToggleAtom} from "../../stores/ToggleStore";
 import ConfirmModal from "../../elements/ConfirmModal";
 import ConfirmationDialog from "../../widgets/ConfirmationDialog";
+import ShowSadFaceIfDataNotExists from "../../elements/ShowSadFaceIfDataNotExists";
 
 
 const Projects: React.FC = (): JSX.Element => {
@@ -72,6 +72,9 @@ const Projects: React.FC = (): JSX.Element => {
                 }
             });
             setToggle(true);
+            setTimeout(() => {
+                setToggle(false)
+            }, 1000);
         } catch (error: unknown) {
             console.log(error);
             setEventNotification((prevState) => {
@@ -82,6 +85,9 @@ const Projects: React.FC = (): JSX.Element => {
                 }
             });
             setToggle(true);
+            setTimeout(() => {
+                setToggle(false);
+            }, 1000);
         }
 
 
@@ -100,6 +106,9 @@ const Projects: React.FC = (): JSX.Element => {
                 }
             });
             setToggle(true);
+            setTimeout(() => {
+                setToggle(false);
+            }, 1000);
         } catch(error: unknown) {
             console.log(error);
             setEventNotification((prevState) => {
@@ -110,6 +119,9 @@ const Projects: React.FC = (): JSX.Element => {
                 }
             });
             setToggle(true);
+            setTimeout(() => {
+                setToggle(false);
+            }, 1000);
 
         }
         event.preventDefault();
@@ -137,7 +149,7 @@ const Projects: React.FC = (): JSX.Element => {
                 </div>
 
             </div>
-            <TableContainer twHeight="max-h-[60vh]">
+            <TableContainer data={data} twHeight="max-h-[60vh]">
                 <thead className="bg-gray-50 sticky top-0">
                     <tr className="hover:bg-gray-50">
                     {HEADINGS.map((heading: string) => (
@@ -161,14 +173,10 @@ const Projects: React.FC = (): JSX.Element => {
                             </td>
                         </tr>
                     ))}
-                    {data != undefined && data.length == 0 && (
-                        <div className="absolute right-0 left-0 mt-4">
-                            <FontAwesomeIcon className="text-gray-600" icon={faFaceSadTear} size="2xl"/>
-                            <p className="">No entries were found</p>
-                        </div>
-                    )}
-
                 </tbody>
+                <>
+                        <ShowSadFaceIfDataNotExists data={data} />
+                </>
 
                 
             </TableContainer>

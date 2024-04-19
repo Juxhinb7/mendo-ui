@@ -1,11 +1,11 @@
 import { useSetAtom } from "jotai";
-import ProjectCreationComponentProps from "../../interfaces/widgets/ProjectCreationComponentProps";
-import Button from "../elements/Button";
-import Form from "../elements/Form";
-import Input from "../elements/Input";
+import ProjectCreationComponentProps from "../../../interfaces/widgets/ProjectCreationComponentProps";
+import Button from "../../elements/Button";
+import Form from "../../elements/Form";
+import Input from "../../elements/Input";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-import { ProjectDescriptionAtom, ProjectTitleAtom } from "../stores/ProjectDetailStore";
+import { ProjectDescriptionAtom, ProjectTitleAtom } from "../../stores/ProjectDetailStore";
 
 const ProjectCreation: React.FC<ProjectCreationComponentProps> = (props): JSX.Element => {
 

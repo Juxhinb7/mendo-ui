@@ -19,6 +19,8 @@ import { useAtomValue } from "jotai";
 import { ErrorAlert, SuccessAlert } from "../elements/alerts";
 import {ToggleReadOnlyAtom} from "../stores/ToggleStore";
 import { useRef } from "react";
+import Hashtags from "./subpages/Hashtags";
+import Sprints from "./subpages/Sprints";
 
 
 const MyEnvironment: React.FC = (): JSX.Element => {
@@ -70,6 +72,8 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                                 }/>
                                 <Route path="/workspace" element={<Workspace />} />
                                 <Route path="/workspace/projects" element={<Projects />} />
+                                <Route path="/workspace/hashtags" element={<Hashtags />} />
+                                <Route path="/workspace/sprints" element={<Sprints />} />
                                 <Route path="/workspace/projects/:id" element={<ProjectDetail />}/>
                                 <Route path="/workspace/projects/hashtags/:id" element={<HashtagDetail />} />
                                 <Route path="/workspace/projects/sprints/:id" element={<SprintDetail />} />

@@ -28,7 +28,8 @@ const useSubmitCredentials = (url: string,
             response.data.access && setToken && setToken(response.data.access);
             options.redirectUrl && navigate(options.redirectUrl, {replace: true});
         }).catch((error: any) => {
-            setErrorMessage((Object.values(error.response.data) as any)[0]);
+            error.response.status !== 500 && setErrorMessage((Object.values(error.response.data) as any)[0]);
+            error.response.status === 500 && setErrorMessage(error.response.status);
             setErrorObject(error.response.data);
             console.log(error.response);
             setToggle(true);
