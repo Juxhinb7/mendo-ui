@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AlertComponentProps from "../../interfaces/alerts/AlertComponentProps";
 import StatusAlertComponentProps from "../../interfaces/alerts/StatusAlertComponentProps";
-import { faCheckCircle, faTriangleExclamation, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 const Alert: React.FC<AlertComponentProps> = (props): JSX.Element => {
     return (
         <div className={`py-1 font-medium rounded-md shadow-sm ${props.customStyle}`}>
