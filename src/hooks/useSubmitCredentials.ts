@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Submittable from "../interfaces/hooks/Submittable";
 
 const useSubmitCredentials = (url: string, 
-    data: {}, setToken?: any, 
+    data: object, setToken?: any, 
     options: {[key: string]: string} = {redirectUrl: ""}): Submittable => {
     const [successMessage, setSuccessMessage] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");

@@ -1,3 +1,4 @@
+import DaisyUIPlugin from "daisyui";
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -6,7 +7,22 @@ export default {
     require.resolve('react-widgets/styles.css'),
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        scale: {
+          "0%, 100%": {transform: "scale(1.0)"},
+          "50%": {transform:"scale(1.1)"},
+        },
+        expand: {
+          "0%": {transform: "scaleX(0)"},
+          "100%": {transform: "scaleX(1)"}
+        }
+      },
+      animation: {
+        scale: "scale 2s ease-in-out infinite",
+        expand: "expand .5s infinite",
+      },
+    },
     screens: {
       'sm': '640px',
       // => @media (min-width: 640px) { ... }
@@ -25,6 +41,6 @@ export default {
       "2k": "2560px"
     }
   },
-  plugins: [require('react-widgets-tailwind')],
+  plugins: [require('react-widgets-tailwind'), DaisyUIPlugin],
 }
 

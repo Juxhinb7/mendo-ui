@@ -130,8 +130,8 @@ const Hashtags = () => {
 
     const hashtagCreationModalProps = {
         type: "button",
-        buttonTitle: "Add hashtag",
-        dialogTitle: "Add hashtag",
+        buttonTitle: "Add Hashtag",
+        dialogTitle: "Add Hashtag",
         children: <HashtagCreation {...hashtagCreationProps}/>
     }
 
@@ -141,7 +141,7 @@ const Hashtags = () => {
                 <div className="mr-2">
                     <Modal {...hashtagCreationModalProps}/>
                 </div>
-            </div>
+            </div>  
             <TableContainer data={data} twHeight="max-h-[60vh]">
                 <thead className="bg-gray-50 sticky top-0">
                     <tr className="hover:bg-gray-50">

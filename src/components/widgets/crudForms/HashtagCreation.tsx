@@ -40,7 +40,7 @@ const HashtagCreation: React.FC<HashtagCreationComponentProps> = (props) => {
                 <div className="mt-4">
                     <select onChange={event => setProjectId(event.target.value)}>
                         <>
-                        <option selected disabled>Select a hashtag</option>
+                        <option selected disabled>Select Project</option>
                         {projectsData && projectsData.map((entry: {[key: string]: string}) => (
                             <option key={entry.id} value={entry.id}>{entry.title}</option>
                         ))}

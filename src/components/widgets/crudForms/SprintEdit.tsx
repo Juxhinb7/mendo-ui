@@ -131,7 +131,7 @@ const SprintEdit: React.FC<SprintEditComponentProps> = (props) => {
                 <div className="mt-4">
                     <select value={projectId} onChange={event => setProjectId(event.target.value)}>
                         <>
-                           <option selected disabled>Select a project</option>
+                           <option selected disabled>Select Project</option>
                            {projectsData && projectsData.map((entry: {[key: string]: string}, index) => (
                                 <option key={index} value={entry.id}>{entry.title}</option>
                            ))}

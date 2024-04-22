@@ -18,7 +18,7 @@ import ConfirmationDialog from "../../widgets/ConfirmationDialog";
 const Sprints = () => {
     const sprintsUrl = "https://starfish-app-hso4j.ondigitalocean.app/project_management/sprints/"
     const HEADINGS = ["#", "User", "Sprint Title", "Start Date", "End Date", "Action"];
-    const [data, setData] = useState<{[key: string]: string}[] | undefined>([]);
+    const [data, setData] = useState<{[key: string]: string}[] | undefined>();
     const {token} = useToken();
     const sprintTitle = useAtomValue(SprintTitleReadOnlyAtom);
     const sprintGoal = useAtomValue(SprintGoalReadOnlyAtom);
@@ -133,8 +133,8 @@ const Sprints = () => {
 
     const sprintCreationModalProps = {
         type: "button",
-        buttonTitle: "Add sprint",
-        dialogTitle: "Add sprint",
+        buttonTitle: "Add Sprint",
+        dialogTitle: "Add Sprint",
         children: <SprintCreation {...sprintCreationProps} />
     }
 
@@ -147,7 +147,7 @@ const Sprints = () => {
             </div>
             <TableContainer data={data} twHeight="max-h-[60vh]">
                 <thead className="bg-gray-50 sticky top-0">
-                    <tr className="hover:bg-gray-50">
+                    <tr>
                         {HEADINGS.map((heading: string) => (
                             <th className="px-1 sm:px-6 py-4 font-medium text-gray-900">{heading}</th>
                         ))}

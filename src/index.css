@@ -6,3 +6,8 @@
 .rw-cell.rw-state-selected {
     @apply bg-cyan-600;
 }
+
+*:focus {
+    outline: none;
+}
+  

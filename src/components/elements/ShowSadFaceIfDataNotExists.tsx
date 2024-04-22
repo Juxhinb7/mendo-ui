@@ -11,7 +11,7 @@ const ShowSadFaceIfDataNotExists = ({data}: ShowSadFaceIfDataNotExistsProps) => 
             {data && data.length == 0 && (
                 <div className="absolute right-0 left-0 mt-4">
                     <FontAwesomeIcon className="text-gray-600" icon={faFaceSadTear} size="2xl"/>
-                        <p className="">No entries were found</p>
+                    <p className="">No entries were found</p>
                 </div>
             )}
         </>

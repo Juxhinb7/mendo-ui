@@ -95,7 +95,7 @@ const HashtagEdit: React.FC<HashtagEditComponentProps> = (props) => {
             <div className="mt-4">
                 <select onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setProjectId(event.target.value)}>
                 <>
-                <option selected disabled>Select a Hashtag</option>
+                <option selected disabled>Select Hashtag</option>
                     {projectsData?.map((entry: {[key: string]: string}) => (
                         <option key={entry.id} value={entry.id}>{entry.title}</option>
                     ))}

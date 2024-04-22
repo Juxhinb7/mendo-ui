@@ -1,6 +1,6 @@
 import Sidebar from "../widgets/Sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRobot } from "@fortawesome/free-solid-svg-icons";
+import { faArrowCircleUp, faRobot } from "@fortawesome/free-solid-svg-icons";
 import { Route, Routes } from "react-router-dom";
 import Home from "./subpages/Home";
 import ContentContainer from "../containers/ContentContainer";
@@ -18,9 +18,10 @@ import { EventNotificationReadOnlyAtom } from "../stores/EventNotificationStore"
 import { useAtomValue } from "jotai";
 import { ErrorAlert, SuccessAlert } from "../elements/alerts";
 import {ToggleReadOnlyAtom} from "../stores/ToggleStore";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Hashtags from "./subpages/Hashtags";
 import Sprints from "./subpages/Sprints";
+import Epics from "./subpages/Epics";
 
 
 const MyEnvironment: React.FC = (): JSX.Element => {
@@ -28,6 +29,7 @@ const MyEnvironment: React.FC = (): JSX.Element => {
     const { saveBackground, background } = useBackground();
     const eventNotification = useAtomValue(EventNotificationReadOnlyAtom);
     const toggle = useAtomValue(ToggleReadOnlyAtom);
+    const [isRobotHovered, setIsRobotHovered] = useState(false);
     
     const sidebarContainer = useRef<HTMLDivElement>(null!);
 
@@ -38,7 +40,7 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                 <div onClick={() => sidebarContainer.current?.setAttribute("hidden", "hidden")} ref={sidebarContainer} className="hidden border-r-2 border-dotted 2xl:block w-[16rem]">
                      <Sidebar />
                 </div>
-                <div className={`flex relative w-full flex-col ${background}`}>
+                <div className={`flex relative w-full flex-col ${background || "bg-gray-100"}`}>
                     {eventNotification.isSuccess && (
                         <>
                             {toggle && (
@@ -74,6 +76,7 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                                 <Route path="/workspace/projects" element={<Projects />} />
                                 <Route path="/workspace/hashtags" element={<Hashtags />} />
                                 <Route path="/workspace/sprints" element={<Sprints />} />
+                                <Route path="/workspace/epics" element={<Epics />} />
                                 <Route path="/workspace/projects/:id" element={<ProjectDetail />}/>
                                 <Route path="/workspace/projects/hashtags/:id" element={<HashtagDetail />} />
                                 <Route path="/workspace/projects/sprints/:id" element={<SprintDetail />} />
@@ -86,8 +89,13 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                 </div>
 
                 <div className="fixed z-10 right-8 bottom-8">
-                    <FontAwesomeIcon icon={faRobot} className="text-gray-600" size={"4x"}/>
+                    <button onMouseEnter={() => setIsRobotHovered(true)} onMouseLeave={() => setIsRobotHovered(false)} className="rounded-full w-[4.5rem] h-[4.5rem] bg-gradient-to-r from-[#0ddbdb] to-[#14a2c9] z-10 shadow-2xl">
+                        <FontAwesomeIcon icon={isRobotHovered ? faArrowCircleUp : faRobot} className="text-gray-900 py-4" size={"2x"}/>
+                    </button>
+                    <div className="absolute bg-gradient-to-r from-[#7a63a3] to-[#63a4ee] animate-scale blur -inset-1 rounded-full -z-10"></div>
                 </div>
+
+
             </div>
 
     )

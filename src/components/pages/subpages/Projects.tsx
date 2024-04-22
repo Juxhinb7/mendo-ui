@@ -134,8 +134,8 @@ const Projects: React.FC = (): JSX.Element => {
 
     const projectCreationModalProps: ModalComponentProps = {
         type: "button",
-        buttonTitle: "Add project",
-        dialogTitle: "Add project",
+        buttonTitle: "Add Project",
+        dialogTitle: "Add Project",
         children: <ProjectCreation {...projectCreationProps}/>
 
     }
@@ -174,7 +174,9 @@ const Projects: React.FC = (): JSX.Element => {
                         </tr>
                     ))}
                 </tbody>
+
                 <>
+
                         <ShowSadFaceIfDataNotExists data={data} />
                 </>
 
