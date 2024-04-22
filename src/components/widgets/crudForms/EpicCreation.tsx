@@ -7,9 +7,10 @@ import { EpicDescriptionAtom, EpicEndDateAtom, EpicEstimateAtom, EpicHashtagIdAt
 import { useEffect, useState } from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import useToken from "../../../hooks/useToken";
+import EpicCreationComponentProps from "../../../interfaces/widgets/EpicCreationComponentProps";
 
 
-const EpicCreation: React.FC = (props: any): JSX.Element => {
+const EpicCreation: React.FC<EpicCreationComponentProps> = (props): JSX.Element => {
     
     const setTitle = useSetAtom(EpicTitleAtom);
     const setDescription = useSetAtom(EpicDescriptionAtom);
