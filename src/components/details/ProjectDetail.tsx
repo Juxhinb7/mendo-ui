@@ -29,7 +29,7 @@ const ProjectDetail = () => {
 
     const serverURL = "https://starfish-app-hso4j.ondigitalocean.app/project_management";
 
-    const HEADINGS = ["Id", "Title", "Action"];
+    const HEADINGS = ["Title", "Action"];
 
     useEffect(() => {
         axios({

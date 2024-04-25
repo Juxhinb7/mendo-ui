@@ -23,7 +23,7 @@ const Projects: React.FC = (): JSX.Element => {
     const projectsURL = "https://starfish-app-hso4j.ondigitalocean.app/project_management/projects/";
     const [data, setData] = useState<{[key: string]: string}[] | undefined>();
 
-    const HEADINGS = ["#", "User", "Project Title", "Action"];
+    const HEADINGS = ["User", "Project Title", "Hashtags", "Sprints", "Epics", "Action"];
     const {token} = useToken();
     const projectTitle = useAtomValue(ProjectTitleReadOnlyAtom);
     const projectDescription = useAtomValue(ProjectDescriptionReadOnlyAtom);
@@ -159,10 +159,32 @@ const Projects: React.FC = (): JSX.Element => {
                 </thead>
                 <tbody className="border-t divide-y">
                     {data != undefined && data.map((entry: {[key: string]: string}, index: number) => (
-                        <tr key={entry.id} className="hover:bg-gray-50">
-                            <td className="px-1 sm:px-6 py-4">{index}</td>
-                            <td className="px-1 sm:px-6 py-4">{entry.user}</td>
-                            <td className="px-1 sm:px-6 py-4"><Link to={`/my-environment/workspace/projects/${entry.id}/`}>{entry.title}</Link></td>
+                        <tr key={index} className="hover:bg-gray-50">
+                            <td className="px-1 sm:px-6 py-4">
+                                <p>
+                                    {entry.user}
+                                </p>
+                            </td>
+                            <td className="px-1 sm:px-6 py-4">
+                                <Link to={`/my-environment/workspace/projects/${entry.id}/`} className="tooltip" data-tip={entry.title}>
+                                    {entry.title.length > 15 ? entry.title.substring(0, 12) + "..." : entry.title}
+                                </Link>
+                            </td>
+                            <td>
+                                <p>
+                                    {entry.hashtags.length}
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    {entry.sprints.length}
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    {entry.epics.length}
+                                </p>
+                            </td>
                             <td className="px-1 sm:px-6 py-4 space-x-4">
                                 <Modal type="fontAwesome" dialogTitle="Edit project" icon={faEdit}>
                                     <ProjectEdit id={entry.id} projectsURL={projectsURL} data={data} setData={setData}/>

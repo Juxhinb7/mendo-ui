@@ -49,14 +49,11 @@ const DetailList: React.FC<DetailListComponentProps> = (props): JSX.Element => {
                         </thead>
                         <tbody className="border-t divide-y">
 
-                                {props.subData.map((item: {[key: string]: string}, index: number) => (
+                                {props.subData.map((item: {[key: string]: string}) => (
                                     <tr className="hover:bg-gray-50" key={item.id}>
                                         <td>
-                                            <p>{index}</p>
-                                        </td>
-                                        <td>
-                                            <Link to={props.url + item.id}>
-                                                {item.title}
+                                            <Link to={props.url + item.id} className="tooltip" data-tip={item.title}>
+                                                {item.title.length > 15 ? item.title.substring(0, 12) + "...": item.title}
                                             </Link>
                                         </td>
                                         <td className="space-x-4">

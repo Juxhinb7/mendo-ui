@@ -17,7 +17,7 @@ import ConfirmationDialog from "../../widgets/ConfirmationDialog";
 
 const Sprints = () => {
     const sprintsUrl = "https://starfish-app-hso4j.ondigitalocean.app/project_management/sprints/"
-    const HEADINGS = ["#", "User", "Sprint Title", "Start Date", "End Date", "Action"];
+    const HEADINGS = ["User", "Sprint Title", "Action"];
     const [data, setData] = useState<{[key: string]: string}[] | undefined>();
     const {token} = useToken();
     const sprintTitle = useAtomValue(SprintTitleReadOnlyAtom);
@@ -156,16 +156,21 @@ const Sprints = () => {
                 <tbody className="border-t divide-y">
                     {data != undefined && data.map((entry: {[key: string]: string}, index: number) => (
                         <tr key={index} className="hover:bg-gray-50">
-                            <td className="px-1 sm:px-6 py-4">{index}</td>
-                            <td className="px-1 sm:px-6 py-4">{entry.user}</td>
-                            <td className="px-1 sm:px-6 py-4">{entry.title}</td>
-                            <td className="px-1 sm:px-6 py-4">{entry.start_date.replace("T", " ")}</td>
-                            <td className="px-1 sm:px-6 py-4">{entry.end_date.replace("T", " ")}</td>
+                            <td className="px-1 sm:px-6 py-4">
+                                <p>
+                                    {entry.user}
+                                </p>
+                            </td>
+                            <td className="px-1 sm:px-6 py-4">
+                                <p className="tooltip" data-tip={entry.title}>
+                                    {entry.title.length > 15 ? entry.title.substring(0, 15) + "..." : entry.title}
+                                </p>
+                            </td>
                             <td className="px-1 sm:px-6 py-4 space-x-4">
-                                <Modal type="fontAwesome" dialogTitle="Edit sprint" icon={faEdit}>
+                                <Modal type="fontAwesome" dialogTitle="Edit Sprint" icon={faEdit}>
                                     <SprintEdit id={entry.id} sprintsUrl={sprintsUrl} data={data} setData={setData}/>
                                 </Modal>
-                                <ConfirmModal dialogTitle="Apply changes">
+                                <ConfirmModal dialogTitle="Apply Changes">
                                     <ConfirmationDialog handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}/>
                                 </ConfirmModal>
                             </td>

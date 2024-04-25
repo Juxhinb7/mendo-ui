@@ -73,7 +73,7 @@ const SignUp: React.FC = (): JSX.Element => {
 
                     <p className="text-sm font-medium text-gray-600">
                         Already a user?
-                        <Link className="ml-1" to={"/sign-in"}>Login</Link>
+                        <Link className="ml-1 text-blue-900" to="/sign-in">Login</Link>
                     </p>
                 </Form>
         </FormContainer>

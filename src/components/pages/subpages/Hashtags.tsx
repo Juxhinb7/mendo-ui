@@ -22,7 +22,7 @@ const Hashtags = () => {
     const projectId = useAtomValue(ProjectIdAtomReadOnlyAtom);
     const setEventNotification = useSetAtom(EventNotificationAtom);
     const setToggle = useSetAtom(ToggleAtom);
-    const HEADINGS = ["#", "User", "Hashtag Title", "Action"];
+    const HEADINGS = ["User", "Hashtag Title", "Action"];
     const {token} = useToken()
 
     useEffect(() => {
@@ -153,9 +153,16 @@ const Hashtags = () => {
                 <tbody className="border-t divide-y">
                     { data != undefined && data.map((entry: {[key: string]: string}, index: number) => (
                         <tr key={index} className="hover:bg-gray-50">
-                            <td className="px-1 sm:px-6 py-4">{index}</td>
-                            <td className="px-1 sm:px-6 py-4">{entry.user}</td>
-                            <td className="px-1 sm:px-6 py-4">{entry.title}</td>
+                            <td className="px-1 sm:px-6 py-4">
+                                <p>
+                                    {entry.user}
+                                </p>
+                            </td>
+                            <td className="px-1 sm:px-6 py-4">
+                                <p className="tooltip" data-tip={entry.title}>
+                                    {entry.title.length > 15 ? entry.title.substring(0, 15) + "..." : entry.title}
+                                </p>
+                            </td>
                             <td className="px-1 sm:px-6 py-4 space-x-4">
                                 <Modal type="fontAwesome" dialogTitle="Edit hashtag" icon={faEdit}>
                                     <HashtagEdit id={entry.id} hashtagsUrl={hashtagsURL} data={data} setData={setData}/>

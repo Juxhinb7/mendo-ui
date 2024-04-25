@@ -8,6 +8,7 @@ import { ErrorAlert, SuccessAlert } from "../elements/alerts";
 import Button from "../elements/Button";
 import useToken from "../../hooks/useToken";
 import useSubmitCredentials from "../../hooks/useSubmitCredentials";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
     const URL = "https://starfish-app-hso4j.ondigitalocean.app/users/api/login/";
@@ -41,7 +42,7 @@ const SignIn = () => {
                     <Input type="password" value={password} placeholder="Enter password" onChange={event => setPassword(event.target.value)}/>
                 </InputErrorBoundary>
                 <Button title="Sign in" type="submit" processing={submitProps.processing}/>
-                
+                <p>You don't have an account ? <Link to="/sign-up" className="ml-1 text-blue-900">Sign up instead</Link></p>
             </Form>
         </FormContainer>
     )

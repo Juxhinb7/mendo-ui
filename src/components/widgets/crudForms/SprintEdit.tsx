@@ -10,7 +10,7 @@ import SprintEditComponentProps from "../../../interfaces/widgets/SprintEditComp
 import { EventNotificationAtom } from "../../stores/EventNotificationStore";
 import { ToggleAtom } from "../../stores/ToggleStore";
 
-const SprintEdit: React.FC<SprintEditComponentProps> = (props) => {
+const SprintEdit: React.FC<SprintEditComponentProps> = (props): JSX.Element => {
     const [sprintTitle, setSprintTitle] = useAtom(SprintTitleAtom);
     const [sprintGoal, setSprintGoal] = useAtom(SprintGoalAtom);
     const [startDate, setStartDate] = useAtom(SprintStartDateAtom);

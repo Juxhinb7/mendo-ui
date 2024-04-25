@@ -12,8 +12,7 @@ const NavMenu: React.FC = (): JSX.Element => {
                 <DropdownItemContainer>
                     <div>
                         <DropdownItem title="Home" url="/my-environment/home" />
-                        <DropdownItem title="Workspaces" url="/my-environment/workspaces" />
-                        <DropdownItem title="Calendar" url="/my-environment/calendar" />
+                        <DropdownItem title="Workspace" url="/my-environment/workspace" />
                         <DropdownItem title="Settings" url="/my-environment/settings" />
                     </div>
 

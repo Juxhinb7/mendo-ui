@@ -18,7 +18,7 @@ import { EventNotificationReadOnlyAtom } from "../stores/EventNotificationStore"
 import { useAtomValue } from "jotai";
 import { ErrorAlert, SuccessAlert } from "../elements/alerts";
 import {ToggleReadOnlyAtom} from "../stores/ToggleStore";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Hashtags from "./subpages/Hashtags";
 import Sprints from "./subpages/Sprints";
 import Epics from "./subpages/Epics";
@@ -30,14 +30,11 @@ const MyEnvironment: React.FC = (): JSX.Element => {
     const eventNotification = useAtomValue(EventNotificationReadOnlyAtom);
     const toggle = useAtomValue(ToggleReadOnlyAtom);
     const [isRobotHovered, setIsRobotHovered] = useState(false);
-    
-    const sidebarContainer = useRef<HTMLDivElement>(null!);
 
     return (
             <div className="flex min-h-screen">
 
-                
-                <div onClick={() => sidebarContainer.current?.setAttribute("hidden", "hidden")} ref={sidebarContainer} className="hidden border-r-2 border-dotted 2xl:block w-[16rem]">
+                <div className="hidden border-r-2 border-dotted 2xl:block w-[16rem] ">
                      <Sidebar />
                 </div>
                 <div className={`flex relative w-full flex-col ${background || "bg-gray-100"}`}>

@@ -13,7 +13,7 @@ const Weather: React.FC = (): JSX.Element => {
         fetchData({latitude: userLocation.latitude, longitude: userLocation.longitude});
 
                 
-    }, [userLocation.latitude]);
+    }, [userLocation.latitude, userLocation.latitude]);
     
     const Data = <div>
         <p>Temperature: {(weatherData as any)?.weather?.temperature}°C</p>
