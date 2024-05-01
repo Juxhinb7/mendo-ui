@@ -2,7 +2,7 @@ import { useAtom, useSetAtom } from "jotai";
 import Button from "../../elements/Button";
 import Form from "../../elements/Form"
 import Input from "../../elements/Input";
-import { ProjectIdAtom, SprintEndDateAtom, SprintGoalAtom, SprintStartDateAtom, SprintTitleAtom } from "../../stores/SprintDetailStore";
+import { ProjectIdAtom, SprintEndDateAtom, SprintGoalAtom, SprintStartDateAtom, SprintTitleAtom, StateIdAtom } from "../../stores/SprintDetailStore";
 import useToken from "../../../hooks/useToken";
 import { useEffect, useState } from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
@@ -16,6 +16,7 @@ const SprintEdit: React.FC<SprintEditComponentProps> = (props): JSX.Element => {
     const [startDate, setStartDate] = useAtom(SprintStartDateAtom);
     const [endDate, setEndDate] = useAtom(SprintEndDateAtom);
     const [projectId, setProjectId] = useAtom(ProjectIdAtom);
+    const [stateId, setStateId] = useAtom(StateIdAtom);
     const projectsURL = "https://starfish-app-hso4j.ondigitalocean.app/project_management/projects/";
     const [projectsData, setProjectsData] = useState<{[key: string]: string}[]>();
     const setEventNotificationAtom = useSetAtom(EventNotificationAtom);
@@ -31,8 +32,9 @@ const SprintEdit: React.FC<SprintEditComponentProps> = (props): JSX.Element => {
                 setStartDate(response.data.start_date);
                 setEndDate(response.data.end_date);
                 setProjectId(response.data.project);
+                setStateId(response.data.state);
             })
-    }, [props.id, props.sprintsUrl, setSprintTitle, setSprintGoal, setStartDate, setEndDate, setProjectId, token]);
+    }, [props.id, props.sprintsUrl, setSprintTitle, setSprintGoal, setStartDate, setEndDate, setProjectId, setStateId, token]);
 
     useEffect(() => {
         axios({method: "GET", url: projectsURL, headers: { Authorization: "Bearer " + token }})
@@ -54,7 +56,8 @@ const SprintEdit: React.FC<SprintEditComponentProps> = (props): JSX.Element => {
                 goal: sprintGoal,
                 start_date: startDate,
                 end_date: endDate,
-                project: projectId
+                project: projectId,
+                state: stateId
             },
             headers: {
                 Authorization: "Bearer " + token
@@ -70,7 +73,8 @@ const SprintEdit: React.FC<SprintEditComponentProps> = (props): JSX.Element => {
                             goal: response.data.goal,
                             start_date: response.data.start_date,
                             end_date: response.data.end_date,
-                            project: response.data.project
+                            project: response.data.project,
+                            state: response.data.state
                         }
                     } else {
                         return entry;
@@ -135,6 +139,16 @@ const SprintEdit: React.FC<SprintEditComponentProps> = (props): JSX.Element => {
                            {projectsData && projectsData.map((entry: {[key: string]: string}, index) => (
                                 <option key={index} value={entry.id}>{entry.title}</option>
                            ))}
+                        </>
+                    </select>
+                </div>
+                <div className="mt-4">
+                    <select value={stateId} onChange={event => setStateId(event.target.value)}>
+                        <>
+                        <option selected disabled>Select State</option>
+                        <option value={1}>Backlog</option>
+                        <option value={2}>Active</option>
+                        <option value={3}>Completed</option>
                         </>
                     </select>
                 </div>

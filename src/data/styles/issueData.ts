@@ -1,4 +1,4 @@
-import { EstimateBadge, Priority, PriorityBadge, Status, StatusBadge } from "../types/issueTypes"
+import { EstimateBadge, Priority, PriorityBadge, Status, StatusBadge } from "../../types/styles/issueTypes"
 
 export const status: Status = {
     1: "To Do",

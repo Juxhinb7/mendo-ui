@@ -4,7 +4,6 @@ import Button from "../../elements/Button";
 import Form from "../../elements/Form";
 import Input from "../../elements/Input";
 import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
 import { ProjectDescriptionAtom, ProjectTitleAtom } from "../../stores/ProjectDetailStore";
 
 const ProjectCreation: React.FC<ProjectCreationComponentProps> = (props): JSX.Element => {
@@ -23,7 +22,7 @@ const ProjectCreation: React.FC<ProjectCreationComponentProps> = (props): JSX.El
                     <ReactQuill className="h-64" placeholder="Description" onChange={setDescription}/>
                 </div>
 
-                <div className="mt-14">
+                <div className="mt-24">
                     <Button type="submit" title="Save"/>
                 </div>
             </Form>

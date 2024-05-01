@@ -1,4 +1,4 @@
-import { faBolt, faChalkboardUser, faClipboard, faHashtag, faList, faPersonRunning } from "@fortawesome/free-solid-svg-icons";
+import { faBolt, faChalkboardUser, faChartLine, faClipboard, faHashtag, faPersonRunning } from "@fortawesome/free-solid-svg-icons";
 import WorkspaceItemContainer from "../../containers/WorkspaceItemContainer";
 import WorkspaceItem from "../../elements/WorkspaceItem";
 
@@ -14,8 +14,8 @@ const Workspace: React.FC = (): JSX.Element => {
                 </WorkspaceItemContainer>
                 <WorkspaceItemContainer>
                     <WorkspaceItem url={BASE_URL + "/epics"} title="Epics" icon={faBolt}/>
-                    <WorkspaceItem url={BASE_URL + "/my-board"} title="My Board" icon={faChalkboardUser}/>
-                    <WorkspaceItem url={BASE_URL + "/product-backlog"} title="Product Backlog" icon={faList}/>
+                    <WorkspaceItem url={BASE_URL + "/taskboard"} title="Taskboard" icon={faChalkboardUser}/>
+                    <WorkspaceItem url={BASE_URL + "/reports"} title="Reports" icon={faChartLine}/>
                 </WorkspaceItemContainer>
             </div>
         </>

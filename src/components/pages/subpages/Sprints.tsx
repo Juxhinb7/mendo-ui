@@ -7,17 +7,19 @@ import SprintCreation from "../../widgets/crudForms/SprintCreation";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import useToken from "../../../hooks/useToken";
 import { useAtomValue, useSetAtom } from "jotai";
-import { ProjectIdReadOnlyAtom, SprintEndDateReadOnlyAtom, SprintGoalReadOnlyAtom, SprintStartDateReadOnlyAtom, SprintTitleReadOnlyAtom } from "../../stores/SprintDetailStore";
+import { ProjectIdReadOnlyAtom, SprintEndDateReadOnlyAtom, SprintGoalReadOnlyAtom, SprintStartDateReadOnlyAtom, SprintTitleReadOnlyAtom, StateIdReadOnlyAtom } from "../../stores/SprintDetailStore";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import ConfirmModal from "../../elements/ConfirmModal";
 import SprintEdit from "../../widgets/crudForms/SprintEdit";
 import { EventNotificationAtom } from "../../stores/EventNotificationStore";
 import { ToggleAtom } from "../../stores/ToggleStore";
 import ConfirmationDialog from "../../widgets/ConfirmationDialog";
+import { state, stateBadge } from "../../../data/styles/stateIssueData";
+import { State, StateBadge } from "../../../types/styles/stateIssueTypes";
 
 const Sprints = () => {
     const sprintsUrl = "https://starfish-app-hso4j.ondigitalocean.app/project_management/sprints/"
-    const HEADINGS = ["User", "Sprint Title", "Action"];
+    const HEADINGS = ["User", "Sprint Title", "State", "Action"];
     const [data, setData] = useState<{[key: string]: string}[] | undefined>();
     const {token} = useToken();
     const sprintTitle = useAtomValue(SprintTitleReadOnlyAtom);
@@ -25,6 +27,7 @@ const Sprints = () => {
     const sprintStartDate = useAtomValue(SprintStartDateReadOnlyAtom);
     const sprintEndDate = useAtomValue(SprintEndDateReadOnlyAtom);
     const projectId = useAtomValue(ProjectIdReadOnlyAtom);
+    const stateId = useAtomValue(StateIdReadOnlyAtom);
     const setEventNotification = useSetAtom(EventNotificationAtom);
     const setToggle = useSetAtom(ToggleAtom);
 
@@ -55,7 +58,8 @@ const Sprints = () => {
                     goal: sprintGoal,
                     start_date: sprintStartDate,
                     end_date: sprintEndDate,
-                    project: projectId
+                    project: projectId,
+                    state: stateId
                 },
                 url: sprintsUrl,
                 headers: {
@@ -82,7 +86,7 @@ const Sprints = () => {
             setEventNotification((prevState) => {
                 return {
                     ...prevState,
-                    text: "Failed removing sprint",
+                    text: "Failed adding sprint",
                     isSuccess: false,
                 }
             });
@@ -164,6 +168,11 @@ const Sprints = () => {
                             <td className="px-1 sm:px-6 py-4">
                                 <p className="tooltip" data-tip={entry.title}>
                                     {entry.title.length > 15 ? entry.title.substring(0, 15) + "..." : entry.title}
+                                </p>
+                            </td>
+                            <td className="px-1 sm:px-6 py-4">
+                                <p className={`${stateBadge[Number(entry.state) as keyof StateBadge]}`}>
+                                    {state[Number(entry.state) as keyof State]}
                                 </p>
                             </td>
                             <td className="px-1 sm:px-6 py-4 space-x-4">

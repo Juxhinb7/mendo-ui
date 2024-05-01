@@ -72,7 +72,7 @@ const EpicEdit: React.FC<EpicEditComponentProps> = (props): JSX.Element => {
                 <div className="mt-4">
                     <ReactQuill className="h-64" placeholder="Description" value={description} onChange={setDescription}/>
                 </div>
-                <div className="mt-14">
+                <div className="mt-24">
                     <label className="ml-2">
                         Start Date
                     </label>

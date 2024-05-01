@@ -3,7 +3,7 @@ import SprintCreationComponentProps from "../../../interfaces/widgets/SprintCrea
 import Button from "../../elements/Button";
 import Form from "../../elements/Form";
 import Input from "../../elements/Input";
-import { ProjectIdAtom, SprintEndDateAtom, SprintGoalAtom, SprintStartDateAtom, SprintTitleAtom } from "../../stores/SprintDetailStore";
+import { ProjectIdAtom, SprintEndDateAtom, SprintGoalAtom, SprintStartDateAtom, SprintTitleAtom, StateIdAtom } from "../../stores/SprintDetailStore";
 import { useEffect, useState } from "react";
 import useToken from "../../../hooks/useToken";
 import axios, { AxiosError, AxiosResponse } from "axios";
@@ -14,6 +14,7 @@ const SprintCreation: React.FC<SprintCreationComponentProps> = (props) => {
     const setStartDate = useSetAtom(SprintStartDateAtom);
     const setEndDate = useSetAtom(SprintEndDateAtom);
     const setProjectId = useSetAtom(ProjectIdAtom);
+    const setStateId = useSetAtom(StateIdAtom);
     const projectsUrl = "https://starfish-app-hso4j.ondigitalocean.app/project_management/projects/";
     const { token } = useToken();
     const [projectsData, setProjectsData] = useState<{[key: string]: string}[]>();
@@ -69,6 +70,16 @@ const SprintCreation: React.FC<SprintCreationComponentProps> = (props) => {
                         ))}
                         </>
 
+                    </select>
+                </div>
+                <div className="mt-4">
+                    <select onChange={event => setStateId(event.target.value)}>
+                        <>
+                        <option selected disabled>Select State</option>
+                        <option value={1}>Backlog</option>
+                        <option value={2}>Active</option>
+                        <option value={3}>Completed</option>
+                        </>
                     </select>
                 </div>
                 <div className="mt-4">

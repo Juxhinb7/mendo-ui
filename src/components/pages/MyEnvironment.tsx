@@ -22,6 +22,7 @@ import { useState } from "react";
 import Hashtags from "./subpages/Hashtags";
 import Sprints from "./subpages/Sprints";
 import Epics from "./subpages/Epics";
+import Taskboard from "./subpages/Taskboard";
 
 
 const MyEnvironment: React.FC = (): JSX.Element => {
@@ -74,6 +75,7 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                                 <Route path="/workspace/hashtags" element={<Hashtags />} />
                                 <Route path="/workspace/sprints" element={<Sprints />} />
                                 <Route path="/workspace/epics" element={<Epics />} />
+                                <Route path="/workspace/taskboard" element={<Taskboard />} />
                                 <Route path="/workspace/projects/:id" element={<ProjectDetail />}/>
                                 <Route path="/workspace/projects/hashtags/:id" element={<HashtagDetail />} />
                                 <Route path="/workspace/projects/sprints/:id" element={<SprintDetail />} />

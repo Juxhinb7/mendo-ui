@@ -92,7 +92,7 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
                     <ReactQuill className="h-64" placeholder="Description" value={projectDescription} onChange={setProjectDescription} />
                 </div>  
 
-                <div className="mt-14">
+                <div className="mt-24">
                     <Button type="submit" title="Save"/>
                 </div>
             </Form>

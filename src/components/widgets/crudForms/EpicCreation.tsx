@@ -69,7 +69,7 @@ const EpicCreation: React.FC<EpicCreationComponentProps> = (props): JSX.Element 
                 <div className="mt-4">
                     <ReactQuill className="h-64" placeholder="Description" onChange={setDescription} />
                 </div>
-                <div className="mt-14">
+                <div className="mt-24">
                     <label className="ml-2">
                         Start Date
                     </label>
