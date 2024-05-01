@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Mockup from "../../assets/mockup.gif";
+import Mockup from "../../assets/new.gif";
 import Logo from "../elements/Logo";
 
 const Hero: React.FC = () => {
