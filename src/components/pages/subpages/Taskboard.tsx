@@ -1,175 +1,42 @@
-import { createContext, useCallback, useEffect } from "react";
-import TaskboardContainer from "../../containers/TaskboardContainer";
-import TaskboardColumn from "../../elements/TaskboardColumn";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import useToken from "../../../hooks/useToken";
-import { useAtom, useSetAtom } from "jotai";
-import { StoriesAtom } from "../../stores/StoryDetailStore";
-import TaskboardCard from "../../elements/TaskboardCard";
-import ConfirmationDialog from "../../widgets/ConfirmationDialog";
-import ConfirmModal from "../../elements/ConfirmModal";
-import { EventNotificationAtom } from "../../stores/EventNotificationStore";
-import { ToggleAtom } from "../../stores/ToggleStore";
+import { createContext } from "react";
+import StoriesTaskboard from "../../widgets/taskboardDetails/StoriesTaskboard";
+import SubtasksTaskboard from "../../widgets/taskboardDetails/SubtasksTaskboard";
+import TasksTaskboard from "../../widgets/taskboardDetails/TasksTaskboard";
+import BugsTaskboard from "../../widgets/taskboardDetails/BugsTaskboard";
 
-export const TaskboardColumnContext = createContext<{state: number, statusKey: number}>({
+export const TaskboardColumnContext = createContext<{state: number, statusKey: number, itemsCount: number}>({
     state: 1,
-    statusKey: 1
-})
+    statusKey: 1,
+    itemsCount: 0,
+});
+
+export const TaskboardTypeContext = createContext<"Stories" | "Subtasks" | "Tasks" | "Bugs">("Stories");
 
 const Taskboard = () => {
-    const {token} = useToken(); 
-    const storiesUrl = "https://starfish-app-hso4j.ondigitalocean.app/project_management/stories/";
-
-    const setEventNotification = useSetAtom(EventNotificationAtom);
-    const setToggle = useSetAtom(ToggleAtom);
-
-    const [stories, setStories] = useAtom(StoriesAtom);
     
-    const fetchStories = useCallback(() => {
-        axios({
-            method: "GET",
-            url: storiesUrl,
-            headers: {
-                Authorization: "Bearer " + token
-            }
-        })
-        .then((response: AxiosResponse) => {
-            setStories(response.data);
-            console.log(response.data);
-        })
-        .catch((error: AxiosError) => {
-            console.log(error);
-        })
-    }, [token, setStories]);
-
-    useEffect(() => {
-        fetchStories();
-    }, [fetchStories]);
-
-    const handleRemove = async (entryId: string, event: React.MouseEvent) => {
-        try {
-            const response = await axios({method: "DELETE", url: storiesUrl + entryId + "/", headers: { Authorization: "Bearer " + token}});
-            console.log(response.data);
-            setStories(stories?.filter((m: {[key: string]: string}) => m.id != entryId));
-            setEventNotification((prevState) => {
-                return {
-                    ...prevState,
-                    text: "Entry succesfully removed",
-                    isSuccess: true,
-                }
-            });
-            setToggle(true);
-            setTimeout(() => {
-                setToggle(false);
-            }, 1000);
-        } 
-        catch (error: unknown) {
-            console.log(error);
-            setEventNotification((prevState) => {
-                return {
-                    ...prevState,
-                    text: "Failed removing entry",
-                    isSuccess: false,
-                }
-            })
-        }
-
-        event.preventDefault();
-    }
 
     return (
-        <TaskboardContainer>
-            <TaskboardColumnContext.Provider value={{state: 1, statusKey: 1}}>
-                <TaskboardColumn>
-                    {stories && stories.filter(item => (item.state as unknown) === 1).map((entry: {[key: string]: string}) => (
-                        <div>
-                        <TaskboardCard 
-                            title={entry.title} 
-                            state={1} 
-                            statusKey={1} 
-                            user={entry.user} 
-                            createdAt={entry.created}
-                            trashComponent={
-                                <ConfirmModal 
-                                    dialogTitle="Apply Changes">
-                                        <ConfirmationDialog 
-                                            handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
-                                        />
-                                </ConfirmModal>
-                            }
-                        />
-                        </div>
+        <div role="tablist" className="tabs tabs-lifted">
+            <input type="radio" role="tab" name="my_tasks_1" className="tab font-bold [--tab-bg:var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)))]" aria-label="Stories" defaultChecked />
+            <div role="tabpanel" className="tab-content p-6 bg-base-200 border-base-300 rounded-box">
+                <StoriesTaskboard />
+            </div>
 
-                    ))}
-                </TaskboardColumn>
-            </TaskboardColumnContext.Provider>
+            <input type="radio" role="tab" name="my_tasks_1" className="tab font-bold [--tab-bg:var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)))]" aria-label="Subtasks" />
+            <div role="tabpanel" className="tab-content p-6 bg-base-200 border-base-300 rounded-box">
+                <SubtasksTaskboard />
+            </div>
 
-            <TaskboardColumnContext.Provider value={{state: 2, statusKey: 1}}>
-                <TaskboardColumn>
-                    {stories && stories.filter(item => (item.state as unknown) === 2 && (item.status as unknown) === 1).map((entry: {[key: string]: string}) => (
-                        <TaskboardCard 
-                            title={entry.title} 
-                            state={2} statusKey={1} 
-                            user={entry.user} 
-                            createdAt={entry.created}
-                            trashComponent={
-                                <ConfirmModal
-                                    dialogTitle="Apply Changes">
-                                        <ConfirmationDialog 
-                                            handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
-                                        />
-                                </ConfirmModal>
-                            }
-                        />
-                    ))}
-                </TaskboardColumn>
-            </TaskboardColumnContext.Provider>
+            <input type="radio" role="tab" name="my_tasks_1" className="tab font-bold [--tab-bg:var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)))]" aria-label="Tasks"/>
+            <div role="tabpanel" className="tab-content p-6 bg-base-200 border-base-300 rounded-box">
+                <TasksTaskboard />
+            </div>
 
-            <TaskboardColumnContext.Provider value={{state: 2, statusKey: 2}}>
-                <TaskboardColumn>
-                    {stories && stories.filter(item => (item.state as unknown) === 2 && (item.status as unknown) === 2).map((entry: {[key: string]: string}) => (
-                        <TaskboardCard 
-                            title={entry.title} 
-                            state={2} 
-                            statusKey={2} 
-                            user={entry.user} 
-                            createdAt={entry.created}
-                            trashComponent={
-                                <ConfirmModal
-                                    dialogTitle="Apply Changes">
-                                    <ConfirmationDialog 
-                                        handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
-                                    />
-                                </ConfirmModal>
-                            }
-                        />
-                    ))}
-                </TaskboardColumn>
-            </TaskboardColumnContext.Provider>
-
-            <TaskboardColumnContext.Provider value={{state: 2, statusKey: 3}}>
-                <TaskboardColumn>
-                    {stories && stories.filter(item => (item.state as unknown) === 2 && (item.status as unknown) === 3).map((entry: {[key: string]: string}) => (
-                        <TaskboardCard 
-                            title={entry.title}
-                            state={2}
-                            statusKey={3}
-                            user={entry.user}
-                            createdAt={entry.created}
-                            trashComponent={
-                                <ConfirmModal
-                                    dialogTitle="Apply Changes">
-                                        <ConfirmationDialog 
-                                            handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
-                                        />
-                                </ConfirmModal>
-                            }
-                        />
-                    ))}
-                </TaskboardColumn>
-            </TaskboardColumnContext.Provider>
-
-        </TaskboardContainer>
+            <input type="radio" role="tab" name="my_tasks_1" className="tab font-bold [--tab-bg:var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)))]" aria-label="Bugs"/>
+            <div role="tabpanel" className="tab-content p-6 bg-base-200 border-base-300 rounded-box">
+                <BugsTaskboard />
+            </div>
+        </div>
     )
 }
 export default Taskboard;

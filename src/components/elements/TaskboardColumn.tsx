@@ -3,18 +3,20 @@ import { status, statusStyle } from "../../data/styles/issueData";
 import { faEllipsis, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ReactNode, useContext } from "react";
 import Modal from "./Modal";
-import TaskboardContent from "../widgets/crudForms/taskboardForms/taskboardContent";
-import { TaskboardColumnContext } from "../pages/subpages/Taskboard";
+import StoryModal from "../widgets/taskboardModals/StoryModal";
+import { TaskboardColumnContext, TaskboardTypeContext } from "../pages/subpages/Taskboard";
 import { Status, StatusBadge } from "../../types/styles/issueTypes";
 import {state as dataState} from "../../data/styles/stateIssueData";
+import SubtaskModal from "../widgets/taskboardModals/SubtaskModal";
+import TaskModal from "../widgets/taskboardModals/TaskModal";
 
 export default function TaskboardColumn({children}: {children: ReactNode}) {
-	const taskboardColumnData = useContext(TaskboardColumnContext);
-	const {state, statusKey} = taskboardColumnData;
+	const taskboardColumnState = useContext(TaskboardColumnContext);
+	const taskboardType = useContext(TaskboardTypeContext);
+	const {state, statusKey, itemsCount} = taskboardColumnState;
 	
 	return (
 		<div className="shadow-md bg-white rounded px-2 py-2">
-
 		<div className="flex flex-row justify-between items-center mb-2 mx-1">
 			<div className="flex items-center">
 				{state === 1 && statusKey && <h2 className="mr-2">{dataState[state]}</h2>}
@@ -26,11 +28,13 @@ export default function TaskboardColumn({children}: {children: ReactNode}) {
 					</h2>
 					)
 				}
-				
+				<p className="badge">{itemsCount}</p>
 			</div>
-			<FontAwesomeIcon icon={faEllipsis} className="cursor-pointer hover:text-gray-900 rounded-lg mx-1"/>
-		</div>
 
+			<FontAwesomeIcon icon={faEllipsis} className="cursor-pointer hover:text-gray-900 rounded-lg mx-1"/>
+			
+		</div>
+		
 		<div className="grid gap-2">
 			{children}
 		</div>
@@ -38,7 +42,12 @@ export default function TaskboardColumn({children}: {children: ReactNode}) {
 		<div className="flex flex-row items-center text-gray-500 mt-2 px-1">
 				<div className="mx-1">
 				<Modal type="fontAwesome" icon={faPlus}>
-					<TaskboardContent />
+					<>
+						{taskboardType ==="Stories" && <StoryModal />}
+						{taskboardType === "Subtasks" && <SubtaskModal />}
+						{taskboardType === "Tasks" && <TaskModal />}
+						{taskboardType === "Bugs" && <></>}
+					</>
 				</Modal>
 				</div>
 

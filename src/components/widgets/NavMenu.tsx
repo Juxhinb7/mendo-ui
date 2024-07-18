@@ -10,7 +10,7 @@ const NavMenu: React.FC = (): JSX.Element => {
                     <Burger />
                 </Menu.Button>
                 <DropdownItemContainer>
-                    <div>
+                    <div className="z-50">
                         <DropdownItem title="Home" url="/my-environment/home" />
                         <DropdownItem title="Workspace" url="/my-environment/workspace" />
                         <DropdownItem title="Settings" url="/my-environment/settings" />

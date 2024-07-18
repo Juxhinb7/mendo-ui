@@ -1,12 +1,12 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import StoryCreation from "./StoryCreation";
-import { StoriesAtom, StoryDescriptionReadOnlyAtom, StoryEndDateReadOnlyAtom, StoryEpicIdReadOnlyAtom, StoryEstimateReadOnlyAtom, StoryHashtagIdReadOnlyAtom, StoryPriorityReadOnlyAtom, StorySprintIdReadOnlyAtom, StoryStartDateReadOnlyAtom, StoryStateReadOnlyAtom, StoryStatusReadOnlyAtom, StoryTitleReadOnlyAtom } from "../../../stores/StoryDetailStore";
+import StoryCreation from "../crudForms/taskboardForms/StoryCreation";
+import { StoriesAtom, StoryDescriptionReadOnlyAtom, StoryEndDateReadOnlyAtom, StoryEpicIdReadOnlyAtom, StoryEstimateReadOnlyAtom, StoryHashtagIdReadOnlyAtom, StoryPriorityReadOnlyAtom, StorySprintIdReadOnlyAtom, StoryStartDateReadOnlyAtom, StoryStateReadOnlyAtom, StoryStatusReadOnlyAtom, StoryTitleReadOnlyAtom } from "../../stores/StoryDetailStore";
 import axios from "axios";
-import useToken from "../../../../hooks/useToken";
-import { EventNotificationAtom } from "../../../stores/EventNotificationStore";
-import { ToggleAtom } from "../../../stores/ToggleStore";
+import useToken from "../../../hooks/useToken";
+import { EventNotificationAtom } from "../../stores/EventNotificationStore";
+import { ToggleAtom } from "../../stores/ToggleStore";
 
-const TaskboardContent = () => {
+const StoryModal = () => {
     const storiesUrl = "https://starfish-app-hso4j.ondigitalocean.app/project_management/stories/";
     const {token} = useToken();
 
@@ -85,22 +85,10 @@ const TaskboardContent = () => {
     }
 
     return (
-        <div role="tablist" className="tabs tabs-lifted overflow-auto">
-            <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="Story" defaultChecked />
-            <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                <StoryCreation submitHandler={handleSubmit}/>
-            </div>
-
-            <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="Subtask"  />
-            <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 2</div>
-
-            <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="Task" />
-            <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 3</div>
-
-            <input type="radio" name="my_tabs_1" role="tab" className="tab" aria-label="Bug" />
-            <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 4</div>
+        <div>
+            <StoryCreation submitHandler={handleSubmit}/>
         </div>
     )
 }
 
-export default TaskboardContent;
+export default StoryModal;
