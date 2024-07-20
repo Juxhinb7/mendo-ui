@@ -4,10 +4,10 @@ import Form from "../../../elements/Form";
 import Input from "../../../elements/Input";
 import ReactQuill from "react-quill";
 import { useSetAtom } from "jotai";
-import { TaskDescriptionAtom, TaskEndDateAtom, TaskEpicIdAtom, TaskEstimateAtom, TaskHashtagIdAtom, TaskPriorityAtom, TaskSprintIdAtom, TaskStartDateAtom, TaskStatusAtom, TaskTitleAtom } from "../../../stores/TaskDetailStore";
+import { TaskDescriptionAtom, TaskEndDateAtom, TaskEpicIdAtom, TaskEstimateAtom, TaskHashtagIdAtom, TaskPriorityAtom, TaskSprintIdAtom, TaskStartDateAtom, TaskStateAtom, TaskStatusAtom, TaskTitleAtom } from "../../../stores/TaskDetailStore";
 import Button from "../../../elements/Button";
 import { TaskboardColumnContext } from "../../../pages/subpages/Taskboard";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import useToken from "../../../../hooks/useToken";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
@@ -26,6 +26,7 @@ const TaskCreation = ({submitHandler}: {submitHandler: (event: React.FormEvent) 
     const setPriority = useSetAtom(TaskPriorityAtom);
     const setEstimate = useSetAtom(TaskEstimateAtom);
     const setStatus = useSetAtom(TaskStatusAtom);
+    const setState = useSetAtom(TaskStateAtom);
     const setHashtagId = useSetAtom(TaskHashtagIdAtom);
     const setEpicId = useSetAtom(TaskEpicIdAtom);
     const setSprintId = useSetAtom(TaskSprintIdAtom);
@@ -52,6 +53,48 @@ const TaskCreation = ({submitHandler}: {submitHandler: (event: React.FormEvent) 
             console.log(error);
         })
     }, [token]);
+
+    const fetchEpics = useCallback(() => {
+        axios({
+            method: "GET",
+            url: epicsUrl,
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        })
+        .then((response: AxiosResponse) => {
+            setEpicsData(response.data);
+            console.log(response.data);
+        })
+        .catch((error: AxiosError) => {
+            console.log(error);
+        })
+    }, [token]);
+
+    const fetchSprints = useCallback(() => {
+        axios({
+            method: "GET",
+            url: sprintsUrl,
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        })
+        .then((response: AxiosResponse) => {
+            setSprintsData(response.data);
+            console.log(response.data);
+        })
+        .catch((error: AxiosError) => {
+            console.log(error);
+        })
+    }, [token]);
+
+    useEffect(() => {
+        fetchHashtags();
+        fetchEpics();
+        fetchSprints();
+        setStatus(statusKey.toString());
+        setState(state.toString());
+    }, [fetchHashtags, fetchEpics, fetchSprints, setStatus, statusKey, setState, state]);
 
 
 
