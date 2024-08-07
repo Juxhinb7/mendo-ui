@@ -138,7 +138,7 @@ const StoryCreation = ({submitHandler}: {submitHandler: (event: React.FormEvent)
                     <div className="mt-4">
                         <select value={statusKey} onChange={event => setStatus(event.target.value)}>
                             <option value={1}>To Do</option>
-                            <option value={2}>In progress</option>
+                            <option value={2}>In Progress</option>
                             <option value={3}>Done</option>
                         </select>
                     </div>
@@ -148,7 +148,7 @@ const StoryCreation = ({submitHandler}: {submitHandler: (event: React.FormEvent)
                         <select onChange={event => setHashtagId(event.target.value)}>
                             <>
                             <option selected disabled>Select Hashtag</option>
-                            {hashtagsData && hashtagsData.map((entry: {[key: string]: string}) => (
+                            {hashtagsData?.map((entry: {[key: string]: string}) => (
                                 <option key={entry.id} value={entry.id}>{entry.title}</option>
                             ))}
                             </>
@@ -159,7 +159,7 @@ const StoryCreation = ({submitHandler}: {submitHandler: (event: React.FormEvent)
                         <select onChange={event => setEpicId(event.target.value)}>
                             <>
                             <option selected disabled>Select Epic</option>
-                            {epicsData && epicsData.map((entry: {[key: string]: string}) => (
+                            {epicsData?.map((entry: {[key: string]: string}) => (
                                 <option key={entry.id} value={entry.id}>{entry.title}</option>
                             ))}
                             </>
@@ -170,7 +170,7 @@ const StoryCreation = ({submitHandler}: {submitHandler: (event: React.FormEvent)
                         <select onChange={event => setSprintId(event.target.value)}>
                             <>
                             <option selected disabled>Select Sprint</option>
-                            {sprintsData && sprintsData.map((entry: {[key: string]: string}) => (
+                            {sprintsData?.map((entry: {[key: string]: string}) => (
                                 <option key={entry.id} value={entry.id}>{entry.title}</option>
                             ))}
                             </>

@@ -50,7 +50,7 @@ const TaskModal = () => {
                 headers: {
                     Authorization: "Bearer " + token,
                 }
-            })
+            });
             tasks && setTasks([
                 ...tasks,
                 response.data

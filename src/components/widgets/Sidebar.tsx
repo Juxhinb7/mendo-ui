@@ -1,5 +1,5 @@
 import { faBriefcase, faGear, faHome} from "@fortawesome/free-solid-svg-icons";
-import Person from "../../assets/thispersondoesnotexist.jpg";
+import Person from "../../assets/thispersondoesnotexist.jpeg";
 import Profile from "../elements/Profile";
 import Logo from "../elements/Logo";
 import NavLink from "../elements/NavLink";

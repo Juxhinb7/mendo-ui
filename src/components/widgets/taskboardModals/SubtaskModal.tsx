@@ -47,7 +47,7 @@ const SubtaskModal = (): JSX.Element => {
                 headers: {
                     Authorization: "Bearer " + token,
                 }
-            })
+            });
             subtasks && setSubtasks([
                 ...subtasks,
                 response.data

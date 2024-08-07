@@ -3,11 +3,13 @@ import ReactQuill from "react-quill";
 import EpicEditComponentProps from "../../../interfaces/widgets/EpicEditComponentProps";
 import Form from "../../elements/Form";
 import Button from "../../elements/Button";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { EpicDescriptionAtom, EpicEndDateAtom, EpicEstimateAtom, EpicHashtagIdAtom, EpicPriorityAtom, EpicProjectIdAtom, EpicStartDateAtom, EpicStatusAtom, EpicTitleAtom } from "../../stores/EpicDetailStore";
 import useToken from "../../../hooks/useToken";
 import { useEffect, useState } from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { EventNotificationAtom } from "../../stores/EventNotificationStore";
+import { ToggleAtom } from "../../stores/ToggleStore";
 
 const EpicEdit: React.FC<EpicEditComponentProps> = (props): JSX.Element => {
     const [title, setTitle] = useAtom(EpicTitleAtom);
@@ -24,6 +26,8 @@ const EpicEdit: React.FC<EpicEditComponentProps> = (props): JSX.Element => {
     const { token } = useToken();
     const [hashtagsData, setHashtagsData] = useState<{[key: string]: string}[]>();
     const [projectsData, setProjectsData] = useState<{[key: string]: string}[]>();
+    const setEventNotificationAtom = useSetAtom(EventNotificationAtom);
+    const setToggle = useSetAtom(ToggleAtom);
 
     useEffect(() => {
         axios({method: "GET", url: props.epicsUrl + props.id + "/", headers: { Authorization: "Bearer " + token }})
@@ -62,6 +66,70 @@ const EpicEdit: React.FC<EpicEditComponentProps> = (props): JSX.Element => {
 
     const handleEdit = (event: React.FormEvent) => {
         event.preventDefault();
+        axios({
+            method: "PUT",
+            url: props.epicsUrl + props.id + "/",
+            data: {
+                title: title,
+                description: description,
+                start_date: startDate,
+                end_date: endDate,
+                status: status,
+                priority: priority,
+                estimate: estimate,
+                hashtag: hashtagId,
+                project: projectId,
+            },
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        }).then((response: AxiosResponse) => {
+            console.log(response.data);
+            props.setData && props.setData(
+                props.data && props.data.map((entry: {[key: string]: string}) => {
+                    if (entry.id === props.id) {
+                        return {...entry, 
+                            title: response.data.title,
+                            description: response.data.description,
+                            start_date: response.data.start_date,
+                            end_date: response.data.end_date,
+                            status: response.data.status,
+                            priority: response.data.priority,
+                            estimate: response.data.estimate,
+                            hashtag: response.data.hashtag,
+                            project: response.data.project
+                        }
+                    } else {
+                        return entry;
+                    }
+                })
+            );
+            setEventNotificationAtom((prevState) => {
+                return {
+                    ...prevState,
+                    text: "Epic succesfully updated",
+                    isSuccess: true,
+                }
+            });
+            setToggle(true);
+            setTimeout(() => {
+                setToggle(false);
+            }, 1000);
+
+        }).catch((error: AxiosError) => {
+            console.log(error.response);
+            setEventNotificationAtom((prevState) => {
+                return {
+                    ...prevState,
+                    text: "Failed updating epic",
+                    isSuccess: false,
+                }
+            });
+            setToggle(true);
+            setTimeout(() => {
+                setToggle(false);
+            }, 1000);
+        });
     }
     return (
         <div className="text-sm text-gray-600 mt-4">

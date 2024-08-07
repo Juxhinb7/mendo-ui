@@ -1,17 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useGeoLocation from "../../hooks/useGeoLocation";
 import useWeather from "../../hooks/useWeather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloud, faCloudMoon, faCloudRain, faCloudSun, faMoon, faRefresh, faSmog, faSnowflake, faSpinner, faSun } from "@fortawesome/free-solid-svg-icons";
+import { useAtomValue } from "jotai";
+import { errorReadOnlyAtom } from "../stores/GeoStore";
 
 const Weather: React.FC = (): JSX.Element => {
-    const {userLocation, getUserLocation, error} = useGeoLocation();
+    const {userLocation, getUserLocation} = useGeoLocation();
     const {weatherData, processing, fetchData} = useWeather();
+    const error = useAtomValue(errorReadOnlyAtom);
 
     useEffect(() => {
         getUserLocation();
         fetchData({latitude: userLocation.latitude, longitude: userLocation.longitude});
-
                 
     }, [userLocation.latitude, userLocation.latitude]);
     

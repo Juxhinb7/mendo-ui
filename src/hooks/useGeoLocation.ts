@@ -1,12 +1,16 @@
 import { useState } from "react"
 import GeoLocatable from "../interfaces/hooks/GeoLocatable";
+import { useSetAtom } from "jotai";
+import { errorAtom } from "../components/stores/GeoStore";
 
 const useGeoLocation = (): GeoLocatable => {
     const [userLocation, setUserLocation] = useState<{[key: string]: number}>({latitude: 0, longitude: 0});
-    const [error, setError] = useState<string>("");
+
+    const setError = useSetAtom(errorAtom);
 
     const getUserLocation = () => {
         if (navigator.geolocation) {
+            
             navigator.geolocation.getCurrentPosition(
                 (position: GeolocationPosition) => {
                     const {latitude, longitude} = position.coords;
@@ -19,13 +23,11 @@ const useGeoLocation = (): GeoLocatable => {
         } else {
             setError("Geolocation is not supported by this browser");
         }
-
     }
 
     return {
         userLocation,
         getUserLocation,
-        error
     }
 }
 

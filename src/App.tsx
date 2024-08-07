@@ -1,12 +1,15 @@
 import './App.css';
 import { Navigate, Route, Routes } from "react-router-dom";
-import Hero from "./components/pages/Hero.tsx";
-import NotFound from './components/pages/NotFound.tsx';
-import SignUp from './components/pages/SignUp.tsx';
-import Activation from './components/pages/Activation.tsx';
-import SignIn from './components/pages/SignIn.tsx';
-import MyEnvironment from './components/pages/MyEnvironment.tsx';
 import useToken from './hooks/useToken.ts';
+import MyEnvironment from './components/pages/MyEnvironment.tsx';
+
+import { lazy } from "react";
+import LazyComponent from './components/lazy/LazyComponent.tsx';
+const Hero = lazy(() => import("./components/pages/Hero.tsx"));
+const SignUp = lazy(() => import("./components/pages/SignUp.tsx"));
+const Activation = lazy(() => import("./components/pages/Activation.tsx"));
+const SignIn = lazy(() => import("./components/pages/SignIn.tsx"));
+const NotFound = lazy(() => import("./components/pages/NotFound.tsx"));
 
 
 
@@ -17,11 +20,11 @@ function App() {
         <Routes>
         {!token && token !== "" && token !== undefined ? (
           <>
-            <Route path="/" element={<Hero />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/account-activation" element={<Activation />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<LazyComponent element={<Hero />} />} />
+            <Route path="/sign-up" element={<LazyComponent element={<SignUp />} />} />
+            <Route path="/account-activation" element={<LazyComponent element={<Activation />} />} />
+            <Route path="/sign-in" element={<LazyComponent element={<SignIn />} />} />
+            <Route path="*" element={<LazyComponent element={<NotFound />} />} />
           </>
 
           

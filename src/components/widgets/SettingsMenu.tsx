@@ -1,6 +1,6 @@
 import { Menu } from "@headlessui/react"
 import Profile from "../elements/Profile"
-import Person from "../../assets/thispersondoesnotexist.jpg";
+import Person from "../../assets/thispersondoesnotexist.jpeg";
 import UserID from "../elements/UserID";
 import { DropdownContainer, DropdownItem, DropdownItemContainer } from "../elements/dropdowns";
 import axios, { AxiosError, AxiosResponse } from "axios";

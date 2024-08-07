@@ -2,14 +2,10 @@ import Sidebar from "../widgets/Sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowCircleUp, faRobot } from "@fortawesome/free-solid-svg-icons";
 import { Route, Routes } from "react-router-dom";
-import Home from "./subpages/Home";
 import ContentContainer from "../containers/ContentContainer";
 import HorizontalBar from "../widgets/HorizontalBar";
 import useBackground from "../../hooks/useBackground";
 import { BackgroundHandlerContext } from "../../contexts/BackgroundHandlerContext";
-import Projects from "./subpages/Projects";
-import Workspace from "./subpages/Workspace";
-import Settings from "./subpages/Settings";
 import ProjectDetail from "../details/ProjectDetail";
 import HashtagDetail from "../details/HashtagDetail";
 import SprintDetail from "../details/SprintDetail";
@@ -18,11 +14,18 @@ import { EventNotificationReadOnlyAtom } from "../stores/EventNotificationStore"
 import { useAtomValue } from "jotai";
 import { ErrorAlert, SuccessAlert } from "../elements/alerts";
 import {ToggleReadOnlyAtom} from "../stores/ToggleStore";
-import { useState } from "react";
-import Hashtags from "./subpages/Hashtags";
-import Sprints from "./subpages/Sprints";
-import Epics from "./subpages/Epics";
-import Taskboard from "./subpages/Taskboard";
+import { lazy, useState } from "react";
+import LazyComponent from "../lazy/LazyComponent";
+
+const Home = lazy(() => import("./subpages/Home"));
+const Projects = lazy(() => import("./subpages/Projects"));
+const Workspace = lazy(() => import("./subpages/Workspace"));
+const Settings = lazy(() => import("./subpages/Workspace"));
+const Hashtags = lazy(() => import("./subpages/Hashtags"));
+const Sprints = lazy(() => import("./subpages/Sprints"));
+const Epics = lazy(() => import("./subpages/Epics"));
+const Taskboard = lazy(() => import("./subpages/Taskboard"));
+import 'react-quill/dist/quill.snow.css';
 
 
 const MyEnvironment: React.FC = (): JSX.Element => {
@@ -67,20 +70,20 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                             <Routes>
                                 <Route path="/home" element={
                                     <BackgroundHandlerContext.Provider value={saveBackground}>
-                                        <Home />
+                                        <LazyComponent element={<Home />} />
                                     </BackgroundHandlerContext.Provider>
                                 }/>
-                                <Route path="/workspace" element={<Workspace />} />
-                                <Route path="/workspace/projects" element={<Projects />} />
-                                <Route path="/workspace/hashtags" element={<Hashtags />} />
-                                <Route path="/workspace/sprints" element={<Sprints />} />
-                                <Route path="/workspace/epics" element={<Epics />} />
-                                <Route path="/workspace/taskboard" element={<Taskboard />} />
+                                <Route path="/workspace" element={<LazyComponent element={<Workspace />} />} />
+                                <Route path="/workspace/projects" element={<LazyComponent element={<Projects />} />} />
+                                <Route path="/workspace/hashtags" element={<LazyComponent element={<Hashtags />} />} />
+                                <Route path="/workspace/sprints" element={<LazyComponent element={<Sprints />} />} />
+                                <Route path="/workspace/epics" element={<LazyComponent element={<Epics />} />} />
+                                <Route path="/workspace/taskboard" element={<LazyComponent element={<Taskboard />} />} />
                                 <Route path="/workspace/projects/:id" element={<ProjectDetail />}/>
                                 <Route path="/workspace/projects/hashtags/:id" element={<HashtagDetail />} />
                                 <Route path="/workspace/projects/sprints/:id" element={<SprintDetail />} />
                                 <Route path="/workspace/projects/epics/:id" element={<EpicDetail />} />
-                                <Route path ="/settings" element={<Settings />} /> 
+                                <Route path ="/settings" element={<LazyComponent element={<Settings />} />} /> 
                             </Routes>
                         </ContentContainer>
                     </div>

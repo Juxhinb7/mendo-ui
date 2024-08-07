@@ -7,7 +7,7 @@ const useWeather = () => {
 
     const fetchData = (coordinates: {[key: string]: number | undefined} = {latitude: 0, longitude: 0}) => {
         setProcessing(true);
-        axios({
+        coordinates.latitude && coordinates.longitude && axios({
             method: "GET",
             url: `https://api.brightsky.dev/current_weather?lat=${coordinates.latitude}&lon=${coordinates.longitude}`
         }).then((response: AxiosResponse) => {

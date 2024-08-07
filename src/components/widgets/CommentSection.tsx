@@ -1,4 +1,4 @@
-import Person from "../../assets/thispersondoesnotexist.jpg";
+import Person from "../../assets/thispersondoesnotexist.jpeg";
 import Comment from "../elements/Comment";
 
 const CommentSection = (props: any): JSX.Element => {
