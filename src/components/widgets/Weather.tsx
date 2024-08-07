@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useGeoLocation from "../../hooks/useGeoLocation";
 import useWeather from "../../hooks/useWeather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
