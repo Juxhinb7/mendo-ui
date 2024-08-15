@@ -30,7 +30,7 @@ const SettingsMenu: React.FC = (): JSX.Element => {
     }
 
     return (
-        <div className="z-50">
+        <div>
             <DropdownContainer>
                 <Menu.Button>
                     <Profile img={Person} width="w-8" height="h-8"/>
