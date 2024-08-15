@@ -11,6 +11,9 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import TaskboardCard from "../../elements/TaskboardCard";
 import ConfirmModal from "../../elements/ConfirmModal";
 import ConfirmationDialog from "../ConfirmationDialog";
+import Modal from "../../elements/Modal";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import ViewModal from "../taskboardModals/ViewModal";
 
 const StoriesTaskboard = (): JSX.Element => {
     const storiesUrl = "https://starfish-app-hso4j.ondigitalocean.app/project_management/stories/";
@@ -178,7 +181,8 @@ const StoriesTaskboard = (): JSX.Element => {
                                     key={entry.id}
                                 >
                                     <TaskboardCard
-                                        title={entry.title}  
+                                        title={entry.title}
+                                        priority={entry.priority}
                                         user={entry.user} 
                                         createdAt={entry.created}
                                         trashComponent={
@@ -188,7 +192,10 @@ const StoriesTaskboard = (): JSX.Element => {
                                                     handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
                                                 />  
                                         </ConfirmModal>
-                                    }
+                                        }
+                                        viewComponent={
+                                            <ViewModal data={entry} />
+                                        }  
                                 />
                                 </div>
 
@@ -205,7 +212,8 @@ const StoriesTaskboard = (): JSX.Element => {
                                         key={entry.id}
                                     >
                                         <TaskboardCard 
-                                            title={entry.title}  
+                                            title={entry.title}
+                                            priority={entry.priority}
                                             user={entry.user} 
                                             createdAt={entry.created}
                                             trashComponent={
@@ -215,6 +223,9 @@ const StoriesTaskboard = (): JSX.Element => {
                                                             handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
                                                         />
                                                 </ConfirmModal>
+                                            }
+                                            viewComponent={
+                                                <ViewModal data={entry}/>
                                             }
                                         />                              
                                     </div>
@@ -232,7 +243,8 @@ const StoriesTaskboard = (): JSX.Element => {
                                 key={entry.id}
                             >
                                 <TaskboardCard 
-                                    title={entry.title}  
+                                    title={entry.title}
+                                    priority={entry.priority}  
                                     user={entry.user} 
                                     createdAt={entry.created}
                                     trashComponent={
@@ -243,7 +255,11 @@ const StoriesTaskboard = (): JSX.Element => {
                                                 />
                                         </ConfirmModal>
                                     }
+                                    viewComponent={
+                                        <ViewModal data={entry}/>
+                                    }
                                 />
+
                             </div>
 
                     ))}
@@ -260,6 +276,7 @@ const StoriesTaskboard = (): JSX.Element => {
                             >
                                 <TaskboardCard 
                                     title={entry.title}
+                                    priority={entry.priority}
                                     user={entry.user}
                                     createdAt={entry.created}
                                     trashComponent={
@@ -269,6 +286,9 @@ const StoriesTaskboard = (): JSX.Element => {
                                                     handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
                                                 />
                                         </ConfirmModal>
+                                    }
+                                    viewComponent={
+                                        <ViewModal data={entry}/>
                                     }
                                 />
                             </div>

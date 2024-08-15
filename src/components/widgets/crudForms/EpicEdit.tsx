@@ -135,10 +135,16 @@ const EpicEdit: React.FC<EpicEditComponentProps> = (props): JSX.Element => {
         <div className="text-sm text-gray-600 mt-4">
             <Form withoutStyle={true} submitHandler={handleEdit} method="PUT">
                 <div>
-                    <Input type="text" placeholder="Title" value={title} onChange={event => setTitle(event.target.value)} />
+                    <label className="ml-2">
+                        Title
+                    </label>
+                    <Input type="text" value={title} onChange={event => setTitle(event.target.value)} />
                 </div>
                 <div className="mt-4">
-                    <ReactQuill className="h-64" placeholder="Description" value={description} onChange={setDescription}/>
+                    <label className="ml-2">
+                        Description
+                    </label>
+                    <ReactQuill className="h-64" value={description} onChange={setDescription}/>
                 </div>
                 <div className="mt-24">
                     <label className="ml-2">
@@ -153,7 +159,7 @@ const EpicEdit: React.FC<EpicEditComponentProps> = (props): JSX.Element => {
                     <Input type="datetime-local" value={endDate} onChange={event => setEndDate(event.target.value)} />
                 </div>
                 <div className="mt-4">
-                    <select value={status} onChange={event => setStatus(event.target.value)}>
+                    <select className="select w-full select-bordered border-gray-200" value={status} onChange={event => setStatus(event.target.value)}>
                         <>
                         <option selected disabled>Select Status</option>
                         <option value={1}>To Do</option>
@@ -163,7 +169,7 @@ const EpicEdit: React.FC<EpicEditComponentProps> = (props): JSX.Element => {
                     </select>
                 </div>
                 <div className="mt-4">
-                    <select value={priority} onChange={event => setPriority(event.target.value)}>
+                    <select className="select w-full select-bordered border-gray-200" value={priority} onChange={event => setPriority(event.target.value)}>
                         <>
                         <option selected disabled>Select Priority</option>
                         <option value={1}>Low</option>
@@ -176,7 +182,7 @@ const EpicEdit: React.FC<EpicEditComponentProps> = (props): JSX.Element => {
                     <Input type="number" value={estimate} placeholder="Estimate" onChange={ event => setEstimate(event.target.value)} />
                 </div>
                 <div className="mt-4">
-                    <select value={hashtagId} onChange={event => setHashtagId(event.target.value)}>
+                    <select className="select w-full select-bordered border-gray-200" value={hashtagId} onChange={event => setHashtagId(event.target.value)}>
                         <>
                         <option selected disabled>Select Hashtag</option>
                         {hashtagsData && hashtagsData.map((entry: {[key: string]: string}, index: number) => (
@@ -186,7 +192,7 @@ const EpicEdit: React.FC<EpicEditComponentProps> = (props): JSX.Element => {
                     </select>
                 </div>
                 <div className="mt-4">
-                    <select value={projectId} onChange={event => setProjectId(event.target.value)}>
+                    <select className="select w-full select-bordered border-gray-200" value={projectId} onChange={event => setProjectId(event.target.value)}>
                         <>
                         <option selected disabled>Select Project</option>
                         {projectsData && projectsData.map((entry: {[key: string]: string}, index: number) => (

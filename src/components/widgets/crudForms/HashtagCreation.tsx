@@ -35,10 +35,13 @@ const HashtagCreation: React.FC<HashtagCreationComponentProps> = (props) => {
         <div className="text-sm text-gray-600 mt-4">
             <Form withoutStyle={true} submitHandler={props.submitHandler}>
                 <div>
-                    <Input type="text" placeholder="Title" onChange={event => setHashtagTitle(event.target.value)} />
+                    <label className="ml-2">
+                        Title
+                    </label>
+                    <Input type="text" onChange={event => setHashtagTitle(event.target.value)} />
                 </div>
                 <div className="mt-4">
-                    <select onChange={event => setProjectId(event.target.value)}>
+                    <select className="select w-full select-bordered border-gray-200" onChange={event => setProjectId(event.target.value)}>
                         <>
                         <option selected disabled>Select Project</option>
                         {projectsData && projectsData.map((entry: {[key: string]: string}) => (

@@ -11,6 +11,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import TaskboardCard from "../../elements/TaskboardCard";
 import ConfirmModal from "../../elements/ConfirmModal";
 import ConfirmationDialog from "../ConfirmationDialog";
+import ViewModal from "../taskboardModals/ViewModal";
 
 const TasksTaskboard = (): JSX.Element => {
     const tasksUrl = "https://starfish-app-hso4j.ondigitalocean.app/project_management/tasks/";
@@ -179,6 +180,7 @@ const TasksTaskboard = (): JSX.Element => {
                             >
                                 <TaskboardCard 
                                     title={entry.title}
+                                    priority={entry.priority}
                                     user={entry.user}
                                     createdAt={entry.created}
                                     trashComponent={
@@ -188,6 +190,9 @@ const TasksTaskboard = (): JSX.Element => {
                                                 handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
                                             />
                                         </ConfirmModal>
+                                    }
+                                    viewComponent={
+                                        <ViewModal data={entry} />
                                     }
                                 />
                             </div>
@@ -205,6 +210,7 @@ const TasksTaskboard = (): JSX.Element => {
                             >
                                 <TaskboardCard 
                                     title={entry.title}
+                                    priority={entry.priority}
                                     user={entry.user}
                                     createdAt={entry.created}
                                     trashComponent={
@@ -214,6 +220,9 @@ const TasksTaskboard = (): JSX.Element => {
                                             handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
                                         />
                                         </ConfirmModal>
+                                    }
+                                    viewComponent={
+                                        <ViewModal data={entry} />
                                     }
                                 />
                             </div>
@@ -231,6 +240,7 @@ const TasksTaskboard = (): JSX.Element => {
                             >
                                 <TaskboardCard 
                                     title={entry.title}
+                                    priority={entry.priority}
                                     user={entry.user}
                                     createdAt={entry.created}
                                     trashComponent={
@@ -240,6 +250,9 @@ const TasksTaskboard = (): JSX.Element => {
                                             handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
                                         />
                                         </ConfirmModal>
+                                    }
+                                    viewComponent={
+                                        <ViewModal data={entry} />
                                     }
                                 />
                             </div>
@@ -257,6 +270,7 @@ const TasksTaskboard = (): JSX.Element => {
                             >
                                 <TaskboardCard 
                                     title={entry.title}
+                                    priority={entry.priority}
                                     user={entry.user}
                                     createdAt={entry.created}
                                     trashComponent={
@@ -267,6 +281,9 @@ const TasksTaskboard = (): JSX.Element => {
                                                 handleRemove={(event: React.MouseEvent) => handleRemove(entry.id, event)}
                                             />
                                         </ConfirmModal>
+                                    }
+                                    viewComponent={
+                                        <ViewModal data={entry} />
                                     }
                                 />
                             </div>

@@ -85,11 +85,17 @@ const ProjectEdit: React.FC<ProjectEditComponentProps> = (props): JSX.Element =>
         <div className="text-sm text-gray-600 mt-4">
             <Form withoutStyle={true} submitHandler={handleEdit} method="PUT">
                 <div>
-                    <Input type="text" placeholder="Title" value={projectTitle} onChange={event => setProjectTitle(event.target.value)}/>
+                    <label className="ml-2">
+                        Title
+                    </label>
+                    <Input type="text" value={projectTitle} onChange={event => setProjectTitle(event.target.value)}/>
                 </div>
 
                 <div className="mt-4">
-                    <ReactQuill className="h-64" placeholder="Description" value={projectDescription} onChange={setProjectDescription} />
+                    <label className="ml-2">
+                        Description
+                    </label>
+                    <ReactQuill className="h-64" value={projectDescription} onChange={setProjectDescription} />
                 </div>  
 
                 <div className="mt-24">

@@ -1,8 +1,10 @@
 interface TaskboardCardComponentProps {
     title: string;
+    priority: string;
     user: string;
     createdAt: string;
-    trashComponent: JSX.Element
+    trashComponent: JSX.Element;
+    viewComponent: JSX.Element;
 
 }
 

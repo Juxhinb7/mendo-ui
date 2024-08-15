@@ -72,8 +72,7 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                             <Routes>
                                 <Route path="/home" element={
                                     <BackgroundHandlerContext.Provider value={saveBackground}>
-                                        <LazyComponent fallback={<h1 className="flex justify-center items-center sm:px-6 min-h-[calc(100vh-10rem)]">
-                                            Loading...</h1>} element={<Home />} />
+                                        <LazyComponent fallback={loading} element={<Home />} />
                                     </BackgroundHandlerContext.Provider>
                                 }/>
                                 <Route path="/workspace" element={<LazyComponent fallback={loading} element={<Workspace />} />} />

@@ -42,10 +42,16 @@ const SprintCreation: React.FC<SprintCreationComponentProps> = (props) => {
         <div className="text-sm text-gray-600 mt-4">
             <Form withoutStyle={true} submitHandler={props.submitHandler}>
                 <div>
-                    <Input type="text" placeholder="Title" onChange={event => setTitle(event.target.value)}/>
+                    <label className="ml-2">
+                        Title
+                    </label>
+                    <Input type="text" onChange={event => setTitle(event.target.value)}/>
                 </div>
                 <div className="mt-4">
-                    <Input type="text" placeholder="Goal" onChange={event => setGoal(event.target.value)}/>
+                    <label className="ml-2">
+                        Goal
+                    </label>
+                    <Input type="text" onChange={event => setGoal(event.target.value)}/>
                 </div>
 
                 <div className="mt-4">
@@ -62,7 +68,7 @@ const SprintCreation: React.FC<SprintCreationComponentProps> = (props) => {
                     <Input type="datetime-local" onChange={event => setEndDate(event.target.value)}/>
                 </div>
                 <div className="mt-4">
-                    <select onChange={event => setProjectId(event.target.value)}>
+                    <select className="select w-full select-bordered border-gray-200" onChange={event => setProjectId(event.target.value)}>
                         <>
                         <option selected disabled>Select a project</option>
                         {projectsData && projectsData.map((entry: {[key: string]: string}, index) => (
@@ -73,7 +79,7 @@ const SprintCreation: React.FC<SprintCreationComponentProps> = (props) => {
                     </select>
                 </div>
                 <div className="mt-4">
-                    <select onChange={event => setStateId(event.target.value)}>
+                    <select className="select w-full select-bordered border-gray-200" onChange={event => setStateId(event.target.value)}>
                         <>
                         <option selected disabled>Select State</option>
                         <option value={1}>Backlog</option>

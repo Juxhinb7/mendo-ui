@@ -90,10 +90,13 @@ const HashtagEdit: React.FC<HashtagEditComponentProps> = (props) => {
     return (
         <Form withoutStyle={true} submitHandler={handleEdit} method="PUT">
             <div>
-                <Input type="text" placeholder="Title" value={hashtagTitle} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setHashtagTitle(event.target.value)} />
+                <label className="ml-2">
+                    Title
+                </label>
+                <Input type="text" value={hashtagTitle} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setHashtagTitle(event.target.value)} />
             </div>
             <div className="mt-4">
-                <select onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setProjectId(event.target.value)}>
+                <select className="select w-full select-bordered border-gray-200" onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setProjectId(event.target.value)}>
                 <>
                 <option selected disabled>Select Hashtag</option>
                     {projectsData?.map((entry: {[key: string]: string}) => (

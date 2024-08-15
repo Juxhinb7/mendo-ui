@@ -74,6 +74,7 @@ const StoryModal = () => {
             setEventNotification((prevState) => {
                 return {
                     ...prevState,
+                    text: "Failed adding entry",
                     isSuccess: false,
                 }
             })

@@ -115,10 +115,16 @@ const SprintEdit: React.FC<SprintEditComponentProps> = (props): JSX.Element => {
         <div className="text-sm text-gray-600 mt-4">
             <Form withoutStyle={true} submitHandler={handleEdit} method="PUT">
                 <div>
-                    <Input type="text" placeholder="Title" value={sprintTitle} onChange={event => setSprintTitle(event.target.value)}/>
+                    <label className="ml-2">
+                        Title
+                    </label>
+                    <Input type="text" value={sprintTitle} onChange={event => setSprintTitle(event.target.value)}/>
                 </div>
                 <div className="mt-4">
-                    <Input type="text" placeholder="Goal" value={sprintGoal} onChange={event => setSprintGoal(event.target.value)} />
+                    <label className="ml-2">
+                        Goal
+                    </label>
+                    <Input type="text" value={sprintGoal} onChange={event => setSprintGoal(event.target.value)} />
                 </div>
                 <div className="mt-4">
                     <label className="ml-2">
@@ -133,7 +139,7 @@ const SprintEdit: React.FC<SprintEditComponentProps> = (props): JSX.Element => {
                     <Input type="datetime-local" value={endDate} onChange={event => setEndDate(event.target.value)}/>
                 </div>
                 <div className="mt-4">
-                    <select value={projectId} onChange={event => setProjectId(event.target.value)}>
+                    <select className="select w-full select-bordered border-gray-200" value={projectId} onChange={event => setProjectId(event.target.value)}>
                         <>
                            <option selected disabled>Select Project</option>
                            {projectsData && projectsData.map((entry: {[key: string]: string}, index) => (
@@ -143,7 +149,7 @@ const SprintEdit: React.FC<SprintEditComponentProps> = (props): JSX.Element => {
                     </select>
                 </div>
                 <div className="mt-4">
-                    <select value={stateId} onChange={event => setStateId(event.target.value)}>
+                    <select className="select w-full select-bordered border-gray-200" value={stateId} onChange={event => setStateId(event.target.value)}>
                         <>
                         <option selected disabled>Select State</option>
                         <option value={1}>Backlog</option>

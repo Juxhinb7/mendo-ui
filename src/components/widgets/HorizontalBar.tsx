@@ -6,7 +6,7 @@ import NavMenu from "./NavMenu";
 const HorizontalBar = () => {
     return (
         <div>
-            <div className=" mt-6 left-0 right-0 2xl:hidden">
+            <div className="mt-6 absolute left-0 right-0 2xl:hidden">
                 <NavMenu />
             </div>
             <div className="flex flex-row space-x-4 justify-end mt-6 ml-8 mr-8 lg:ml-12 lg:mr-12">

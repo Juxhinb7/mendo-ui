@@ -34,10 +34,11 @@ const Taskboard = () => {
         >
 
 
-        <div role="tablist" className="tabs tabs-bordered ">
-            <input type="radio" role="tab" name="my_tasks_1" className="rounded-l-lg bg-white tab mb-2 font-bold " aria-label="Stories" defaultChecked />
+        <div role="tablist" className="tabs tabs-bordered">
+            <input type="radio" role="tab" name="my_tasks_1" className="rounded-l-lg bg-white tab mb-2 font-bold" aria-label="Stories" defaultChecked />
             <div role="tabpanel" className="tab-content">
                 <StoriesTaskboard />
+
             </div>
 
             <input type="radio" role="tab" name="my_tasks_1" className="bg-white tab mb-2 font-bold" aria-label="Subtasks" />

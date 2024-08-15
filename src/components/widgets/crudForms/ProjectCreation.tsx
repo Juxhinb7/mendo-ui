@@ -15,11 +15,17 @@ const ProjectCreation: React.FC<ProjectCreationComponentProps> = (props): JSX.El
         <div className="text-sm text-gray-600 mt-4">
             <Form withoutStyle={true} submitHandler={props.submitHandler}>
                 <div>
-                    <Input type="text" placeholder="Title" onChange={event => setProjectTitle(event.target.value)}/>
+                    <label className="ml-2">
+                        Title
+                    </label>
+                    <Input type="text"onChange={event => setProjectTitle(event.target.value)}/>
                 </div>
 
                 <div className="mt-4">
-                    <ReactQuill className="h-64" placeholder="Description" onChange={setDescription}/>
+                    <label className="ml-2">
+                        Description
+                    </label>
+                    <ReactQuill className="h-64" onChange={setDescription}/>
                 </div>
 
                 <div className="mt-24">

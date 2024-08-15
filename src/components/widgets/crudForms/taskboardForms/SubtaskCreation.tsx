@@ -84,10 +84,16 @@ const SubtaskCreation = ({submitHandler}: {submitHandler: (event: React.FormEven
             <div className="mt-4 text-sm text-gray-600">
                 <Form withoutStyle={true} submitHandler={submitHandler}>
                     <div>
-                        <Input type="text" placeholder="Title" onChange={event => setTitle(event.target.value)}/>
+                        <label className="ml-2">
+                            Title
+                        </label>
+                        <Input type="text" onChange={event => setTitle(event.target.value)}/>
                     </div>
                     <div className="mt-4">
-                        <ReactQuill className="h-64" placeholder="Description" onChange={setDescription} />
+                        <label className="ml-2">
+                            Description
+                        </label>
+                        <ReactQuill className="h-64" onChange={setDescription} />
                     </div>
                     <div className="mt-24">
                         <label className="ml-2">
@@ -102,7 +108,7 @@ const SubtaskCreation = ({submitHandler}: {submitHandler: (event: React.FormEven
                         <Input type="datetime-local" onChange={event => setEndDate(event.target.value)} />
                     </div>
                     <div className="mt-4">
-                        <select onChange={event => setPriority(event.target.value)}>
+                        <select className="select w-full select-bordered border-gray-200" onChange={event => setPriority(event.target.value)}>
                             <option selected disabled>Select Priority</option>
                             <option value={1}>Low</option>
                             <option value={2}>Medium</option>
@@ -110,12 +116,15 @@ const SubtaskCreation = ({submitHandler}: {submitHandler: (event: React.FormEven
                         </select>
                     </div>
                     <div className="mt-4">
-                        <Input type="number" placeholder="Estimate" onChange={event => setEstimate(event.target.value)}/>
+                        <label className="ml-2">
+                            Estimate
+                        </label>
+                        <Input type="number" onChange={event => setEstimate(event.target.value)}/>
                     </div>
 
                     {state === 2 && (
                     <div className="mt-4">
-                        <select value={statusKey} onChange={event => setStatus(event.target.value)}>
+                        <select className="select w-full select-bordered border-gray-200" value={statusKey} onChange={event => setStatus(event.target.value)}>
                             <option value={1}>To Do</option>
                             <option value={2}>In Progress</option>
                             <option value={3}>Done</option>
@@ -125,7 +134,7 @@ const SubtaskCreation = ({submitHandler}: {submitHandler: (event: React.FormEven
 
 
                     <div className="mt-4">
-                        <select onChange={event => setHashtagId(event.target.value)}>
+                        <select className="select w-full select-bordered border-gray-200" onChange={event => setHashtagId(event.target.value)}>
                             <>
                             <option selected disabled>Select Hashtag</option>
                             {hashtagsData && hashtagsData.map((entry: {[key: string]: string}) => (
@@ -136,7 +145,7 @@ const SubtaskCreation = ({submitHandler}: {submitHandler: (event: React.FormEven
                     </div>
 
                     <div className="mt-4">
-                        <select onChange={event => setStoryId(event.target.value)}>
+                        <select className="select w-full select-bordered border-gray-200" onChange={event => setStoryId(event.target.value)}>
                             <>
                             <option selected disabled>Select Story</option>
                             {storiesData && storiesData.map((entry: {[key: string]: string}) => (
