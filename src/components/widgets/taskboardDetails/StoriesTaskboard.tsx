@@ -11,8 +11,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import TaskboardCard from "../../elements/TaskboardCard";
 import ConfirmModal from "../../elements/ConfirmModal";
 import ConfirmationDialog from "../ConfirmationDialog";
-import Modal from "../../elements/Modal";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
 import ViewModal from "../taskboardModals/ViewModal";
 
 const StoriesTaskboard = (): JSX.Element => {
