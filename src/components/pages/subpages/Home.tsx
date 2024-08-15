@@ -4,10 +4,10 @@ import {DAY, MONTH, NUMDAY} from "../../../constants/date";
 import Modal from "../../elements/Modal";
 import CustomizationMenu from "../../widgets/CustomizationMenu";
 import { BackgroundHandlerContext } from "../../../contexts/BackgroundHandlerContext";
-import { lazy, useContext } from "react";
-import LazyComponent from "../../lazy/LazyComponent";
+import { useContext } from "react";
+import Weather from "../../widgets/Weather";
 
-const Weather = lazy(() => import("../../widgets/Weather"));
+
 
 const Home: React.FC = () => {
 
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
             </div>
             <div className="flex flex-col 2xl:flex-row justify-center items-center 2xl:space-x-6 mt-24">
                 <Card title="Weather">
-                    <LazyComponent element={<Weather />}/>
+                    <Weather />
                 </Card>
                 <Card title="Calendar">
                     <Calendar bordered={false} defaultValue={new Date()} />

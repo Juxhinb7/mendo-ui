@@ -1,12 +1,15 @@
-import { Suspense } from "react"
+import { ReactNode, Suspense } from "react"
 
-const  LazyComponent =  ({element}: {element: JSX.Element}): JSX.Element => {
+type LazyProps = {
+    fallback: ReactNode,
+    element: ReactNode
+}
+
+const  LazyComponent =  ({...restProps}: LazyProps): JSX.Element => {
+    let {fallback, element} = restProps;
     return (
         <>
-            <Suspense fallback={
-                <h1 className="flex justify-center items-center sm:px-6 min-h-[calc(100vh-10rem)]">
-                    Loading...
-                </h1>}>
+            <Suspense fallback={fallback}>
                 {element}
             </Suspense>
         </>

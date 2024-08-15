@@ -20,11 +20,21 @@ function App() {
         <Routes>
         {!token && token !== "" && token !== undefined ? (
           <>
-            <Route path="/" element={<LazyComponent element={<Hero />} />} />
-            <Route path="/sign-up" element={<LazyComponent element={<SignUp />} />} />
-            <Route path="/account-activation" element={<LazyComponent element={<Activation />} />} />
-            <Route path="/sign-in" element={<LazyComponent element={<SignIn />} />} />
-            <Route path="*" element={<LazyComponent element={<NotFound />} />} />
+            <Route path="/" element={<LazyComponent fallback={<h1 className="flex justify-center items-center sm:px-6 min-h-[calc(100vh-10rem)]">
+                    Loading...
+                </h1>} element={<Hero />} />} />
+            <Route path="/sign-up" element={<LazyComponent fallback={<h1 className="flex justify-center items-center sm:px-6 min-h-[calc(100vh-10rem)]">
+                    Loading...
+                </h1>} element={<SignUp />} />} />
+            <Route path="/account-activation" element={<LazyComponent fallback={<h1 className="flex justify-center items-center sm:px-6 min-h-[calc(100vh-10rem)]">
+                    Loading...
+                </h1>} element={<Activation />} />} />
+            <Route path="/sign-in" element={<LazyComponent fallback={<h1 className="flex justify-center items-center sm:px-6 min-h-[calc(100vh-10rem)]">
+                    Loading...
+                </h1>} element={<SignIn />} />} />
+            <Route path="*" element={<LazyComponent fallback={<h1 className="flex justify-center items-center sm:px-6 min-h-[calc(100vh-10rem)]">
+                    Loading...
+                </h1>} element={<NotFound />} />} />
           </>
 
           

@@ -34,24 +34,24 @@ const Taskboard = () => {
         >
 
 
-        <div role="tablist" className="tabs tabs-lifted">
-            <input type="radio" role="tab" name="my_tasks_1" className="tab font-bold [--tab-bg:var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)))]" aria-label="Stories" defaultChecked />
-            <div role="tabpanel" className="tab-content p-6 bg-base-200 border-base-300 rounded-box">
+        <div role="tablist" className="tabs tabs-bordered ">
+            <input type="radio" role="tab" name="my_tasks_1" className="rounded-l-lg bg-white tab mb-2 font-bold " aria-label="Stories" defaultChecked />
+            <div role="tabpanel" className="tab-content">
                 <StoriesTaskboard />
             </div>
 
-            <input type="radio" role="tab" name="my_tasks_1" className="tab font-bold [--tab-bg:var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)))]" aria-label="Subtasks" />
-            <div role="tabpanel" className="tab-content p-6 bg-base-200 border-base-300 rounded-box">
+            <input type="radio" role="tab" name="my_tasks_1" className="bg-white tab mb-2 font-bold" aria-label="Subtasks" />
+            <div role="tabpanel" className="tab-content">
                 <SubtasksTaskboard />
             </div>
 
-            <input type="radio" role="tab" name="my_tasks_1" className="tab font-bold [--tab-bg:var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)))]" aria-label="Tasks"/>
-            <div role="tabpanel" className="tab-content p-6 bg-base-200 border-base-300 rounded-box">
+            <input type="radio" role="tab" name="my_tasks_1" className="bg-white tab mb-2 font-bold" aria-label="Tasks"/>
+            <div role="tabpanel" className="tab-content">
                 <TasksTaskboard />
             </div>
 
-            <input type="radio" role="tab" name="my_tasks_1" className="tab font-bold [--tab-bg:var(--fallback-b2,oklch(var(--b2)/var(--tw-border-opacity)))]" aria-label="Bugs"/>
-            <div role="tabpanel" className="tab-content p-6 bg-base-200 border-base-300 rounded-box">
+            <input type="radio" role="tab" name="my_tasks_1" className="rounded-r-lg bg-white tab mb-2 font-bold" aria-label="Bugs"/>
+            <div role="tabpanel" className="tab-content">
                 <BugsTaskboard />
             </div>
         </div>

@@ -1,3 +1,9 @@
+import { lazy } from "react";
+import LazyComponent from "../lazy/LazyComponent";
+import RectSkeleton from "./RectSkeleton";
+
+const BGCover = lazy(() => import("./BGCover"));
+
 const CustomizationMenu = (props: any): JSX.Element => {
     
     return (
@@ -13,9 +19,15 @@ const CustomizationMenu = (props: any): JSX.Element => {
             </div>
             <p className="mt-4">Pick a background image</p>
             <div className="flex space-x-2 mt-2">
-                <div onClick={() => props.setBackground("bg-cover bg-[url('assets/pexels-fox-1172675.jpg')]")} className="bg-cover bg-[url('assets/pexels-fox-1172675.jpg')] w-24 h-24" />
-                <div onClick={() => props.setBackground("bg-cover bg-[url('assets/navagio.jpg')]")} className="bg-cover bg-[url('assets/navagio.jpg')] w-24 h-24"/>
-                <div onClick={() => props.setBackground("bg-cover bg-[url('assets/maldives.webp')]")} className="bg-cover bg-[url('assets/maldives.webp')] w-24 h-24"/>
+                <div onClick={() => props.setBackground("bg-cover bg-[url('assets/pexels-fox-1172675.jpg')]")}>
+                <LazyComponent fallback={<RectSkeleton />} element={<BGCover url={"assets/pexels-fox-1172675.jpg"}/>} />
+                </div>
+                <div onClick={() => props.setBackground("bg-cover bg-[url('assets/navagio.jpg')]")}>
+                    <LazyComponent fallback={<RectSkeleton />} element={<BGCover url={"assets/navagio.jpg"}/>} />
+                </div>
+                <div onClick={() => props.setBackground("bg-cover bg-[url('assets/maldives.webp')]")}>
+                    <LazyComponent fallback={<RectSkeleton />} element={<BGCover url={"assets/maldives.webp"}/>} />
+                </div>
             </div>
         </div>
     )

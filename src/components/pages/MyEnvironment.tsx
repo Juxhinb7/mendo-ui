@@ -35,6 +35,8 @@ const MyEnvironment: React.FC = (): JSX.Element => {
     const toggle = useAtomValue(ToggleReadOnlyAtom);
     const [isRobotHovered, setIsRobotHovered] = useState(false);
 
+    const loading = <h1 className="flex justify-center items-center sm:px-6 min-h-[calc(100vh-10rem)]">Loading...</h1>
+
     return (
             <div className="flex min-h-screen">
 
@@ -70,20 +72,21 @@ const MyEnvironment: React.FC = (): JSX.Element => {
                             <Routes>
                                 <Route path="/home" element={
                                     <BackgroundHandlerContext.Provider value={saveBackground}>
-                                        <LazyComponent element={<Home />} />
+                                        <LazyComponent fallback={<h1 className="flex justify-center items-center sm:px-6 min-h-[calc(100vh-10rem)]">
+                                            Loading...</h1>} element={<Home />} />
                                     </BackgroundHandlerContext.Provider>
                                 }/>
-                                <Route path="/workspace" element={<LazyComponent element={<Workspace />} />} />
-                                <Route path="/workspace/projects" element={<LazyComponent element={<Projects />} />} />
-                                <Route path="/workspace/hashtags" element={<LazyComponent element={<Hashtags />} />} />
-                                <Route path="/workspace/sprints" element={<LazyComponent element={<Sprints />} />} />
-                                <Route path="/workspace/epics" element={<LazyComponent element={<Epics />} />} />
-                                <Route path="/workspace/taskboard" element={<LazyComponent element={<Taskboard />} />} />
+                                <Route path="/workspace" element={<LazyComponent fallback={loading} element={<Workspace />} />} />
+                                <Route path="/workspace/projects" element={<LazyComponent fallback={loading} element={<Projects />} />} />
+                                <Route path="/workspace/hashtags" element={<LazyComponent fallback={loading} element={<Hashtags />} />} />
+                                <Route path="/workspace/sprints" element={<LazyComponent fallback={loading} element={<Sprints />} />} />
+                                <Route path="/workspace/epics" element={<LazyComponent fallback={loading} element={<Epics />} />} />
+                                <Route path="/workspace/taskboard" element={<LazyComponent fallback={loading} element={<Taskboard />} />} />
                                 <Route path="/workspace/projects/:id" element={<ProjectDetail />}/>
                                 <Route path="/workspace/projects/hashtags/:id" element={<HashtagDetail />} />
                                 <Route path="/workspace/projects/sprints/:id" element={<SprintDetail />} />
                                 <Route path="/workspace/projects/epics/:id" element={<EpicDetail />} />
-                                <Route path ="/settings" element={<LazyComponent element={<Settings />} />} /> 
+                                <Route path ="/settings" element={<LazyComponent fallback={loading} element={<Settings />} />} /> 
                             </Routes>
                         </ContentContainer>
                     </div>

@@ -1,23 +1,16 @@
-import { useEffect } from "react";
-import useGeoLocation from "../../hooks/useGeoLocation";
 import useWeather from "../../hooks/useWeather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloud, faCloudMoon, faCloudRain, faCloudSun, faMoon, faRefresh, faSmog, faSnowflake, faSpinner, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faCloud, faCloudMoon, faCloudRain, faCloudSun, faMoon, faRefresh, faSmog, faSnowflake, faSun } from "@fortawesome/free-solid-svg-icons";
 import { useAtomValue } from "jotai";
 import { errorReadOnlyAtom } from "../stores/GeoStore";
+import WeatherSkeleton from "./WeatherSkeleton";
 
 const Weather: React.FC = (): JSX.Element => {
-    const {userLocation, getUserLocation} = useGeoLocation();
-    const {weatherData, processing, fetchData} = useWeather();
+    const {weatherData, processing, userLocation, fetchData} = useWeather();
     const error = useAtomValue(errorReadOnlyAtom);
-
-    useEffect(() => {
-        getUserLocation();
-        fetchData({latitude: userLocation.latitude, longitude: userLocation.longitude});
-                
-    }, [userLocation.latitude, userLocation.latitude]);
     
     const Data = <div>
+
         <p>Temperature: {(weatherData as any)?.weather?.temperature}°C</p>
         <p>Cloud cover: {(weatherData as any)?.weather?.cloud_cover}%</p>
         <p>Condition: {(weatherData as any)?.weather?.condition}</p>
@@ -90,7 +83,7 @@ const Weather: React.FC = (): JSX.Element => {
                     )}
                 </div>                  
                 </>
-                ) : <FontAwesomeIcon icon={faSpinner} className="text-cyan-600" spin size="5x"/>}
+                ) : <WeatherSkeleton />}
             </div>
             )}
         </div>
