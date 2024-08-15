@@ -12,7 +12,7 @@ export const DropdownContainer: React.FC<DropdownContainerComponentProps> = (pro
 
 export const DropdownItemContainer: React.FC<DropdownItemContainerComponentProps> = (props): JSX.Element => {
     return (
-        <Menu.Items className="absolute mt-2 right-0 w-36 sm:w-56 divide-y divide-gray-100 origin-top-right bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+        <Menu.Items className="z-50 absolute mt-2 right-0 w-36 sm:w-56 divide-y divide-gray-100 origin-top-right bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
             {props.children}
         </Menu.Items>
     )
