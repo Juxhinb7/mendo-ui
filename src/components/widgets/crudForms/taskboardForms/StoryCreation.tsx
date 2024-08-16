@@ -154,7 +154,7 @@ const StoryCreation = ({submitHandler}: {submitHandler: (event: React.FormEvent)
                     )}
 
                     <div className="mt-4">
-                        <select className="select w-full select-bordered border-gray-200" onChange={event => setHashtagId(event.target.value)}>
+                        <select className="select w-full select-bordered border-gray-200" onChange={event => setHashtagId(event.target.value ?? "")}>
                             <>
                             <option selected disabled>Select Hashtag</option>
                             {hashtagsData?.map((entry: {[key: string]: string}) => (
