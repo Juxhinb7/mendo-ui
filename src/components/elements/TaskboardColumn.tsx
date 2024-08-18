@@ -23,7 +23,7 @@ export default function TaskboardColumn({children, ...restProps}: DragEvents) {
 	const {state, statusKey, itemsCount} = taskboardColumnState;
 	
 	return (
-		<div className="shadow-md bg-white rounded px-2 py-2" {...restProps}>
+		<div className="shadow-md bg-white rounded px-2 py-2 min-h-20 max-h-[60rem] overflow-clip hover:overflow-auto" {...restProps}>
 		<div className="flex flex-row justify-between items-center mb-2 mx-1">
 			<div className="flex items-center">
 				{state === 1 && statusKey && <h2 className="mr-2">{dataState[state]}</h2>}
